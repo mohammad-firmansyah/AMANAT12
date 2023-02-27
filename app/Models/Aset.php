@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Aset extends Model
 {
     use HasFactory;
-    protected 
+    protected $table = 'data_aset';
 }
