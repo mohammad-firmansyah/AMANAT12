@@ -53,6 +53,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
+        'validateTokenInvalid' => \App\Http\Middleware\EnsureTokenIsInvalid::class,
         'validateToken' => \App\Http\Middleware\EnsureTokenIsValid::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

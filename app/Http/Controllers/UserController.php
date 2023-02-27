@@ -13,6 +13,10 @@ class UserController extends Controller
 {
     public function login(Request $request){
 
+        if ($request->session()->get("token")){
+            return redirect("dashboard");
+        }
+
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required',

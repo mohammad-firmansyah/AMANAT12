@@ -17,7 +17,7 @@ use App\Http\Controllers\AsetController;
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->middleware("validateTokenInvalid");
 
 Route::post('login', [UserController::class,'login']);
 Route::get('dashboard', [AsetController::class,'dashboard'])->middleware("validateToken");
