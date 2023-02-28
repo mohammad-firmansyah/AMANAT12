@@ -414,7 +414,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <script>document.write(new Date().getFullYear())</script> &copy; One Stop Solution for Planters by <a href="ptpn12.com">PT Perkebunan Nusantara XII</a> 
+                                <script>document.write(new Date().getFullYear())</script> &copy; Amanat12 Aplikasi Aset Manajemen N12 by <a href="ptpn12.com">PT Perkebunan Nusantara XII</a> 
                             </div>
                         </div>
                     </div>
