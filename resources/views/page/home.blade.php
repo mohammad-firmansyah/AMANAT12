@@ -91,6 +91,17 @@
 @endsection
 
 @section('content')
+@if ($errors->any())
+<div class="alert alert-danger bg-danger text-white border-0" role="alert">
+    {!! $errors->first() !!}
+</div>
+@endif
+
+@if (Session::has('message'))
+<div class="alert alert-warning bg-warning text-white border-0" role="alert">
+    {!! Session::get('message') !!}
+</div>
+@endif
 <center>
     <h3>Selamat Datang,<br>{{$nama}}</h3>
 </center>

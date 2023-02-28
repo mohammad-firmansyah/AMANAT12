@@ -17,6 +17,9 @@ class EnsureTokenIsValid
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!$request->session()->get("token")){
+            return redirect("/")->withErrors("Token is Expired");
+        }
         try {
             $decrypted = Crypt::decryptString($request->session()->get("token"));
         } catch (DecryptException $e) {

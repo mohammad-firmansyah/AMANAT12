@@ -52,4 +52,49 @@ class UserController extends Controller
         }
 
     }
+
+    public function logout(){
+        session()->forget('token');
+        return redirect("/");
+    }
+    
+    public function resetPassword(Request $request){
+        $validator = Validator::make($request->all(),[
+            'pass_old' => 'required',
+            'pass_new' => 'required|min:6',
+            'pass_new_con' => 'required|min:6'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('dashboard')
+            ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validated = $validator->validated();
+
+        try {
+            $decrypted = Crypt::decryptString($request->session()->get("token"));
+        } catch (DecryptException $e) {
+            dd($e);
+        }
+        $user = DB::table("users")->where("user_id", $decrypted)->first();
+
+        if ($user->user_id) {
+
+            if ($validated["pass_new_con"] == $validated["pass_new"]) {
+                $pass_hashed = Hash::make($validated["pass_new"]);
+                $affected =  DB::table("users")->where("user_id",$decrypted)->update(["user_pass" => $pass_hashed]);
+                if ($affected) {
+                    // dd($affected);
+                    session()->forget("token");
+                    session()->flash("message","Password has been reset");
+                    return redirect("/");
+                }
+            }
+        } 
+
+        return redirect("/")->withErrors("Token is Expired");
+
+    }
 }
