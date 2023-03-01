@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Helpers\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -10,13 +10,8 @@ use Illuminate\Support\Facades\Crypt;
 class AsetController extends Controller
 {
     public function dashboard(){
-        // dd(session("token"));
-        try {
-            $decrypted = Crypt::decryptString(session("token"));
-        } catch (DecryptException $e) {
-            dd($e);
-        }
-        $user = DB::table("users")->where("user_id",$decrypted)->first();
+        
+        $user = User::get_user_from_token();
 
         $nama = $user->username;
         $jabatan = DB::table("hak_akses")->where("hak_akses_id",$user->hak_akses_id)->first()->hak_akses_desc;
@@ -65,5 +60,20 @@ class AsetController extends Controller
         // end status posisi
 
         return view("page.home",compact(["nama","title","jabatan","aset_tipe","jumlah_aset_tipe", "aset_jenis","jumlah_aset_jenis", "aset_kondisi","jumlah_aset_kondisi", "aset_kode","jumlah_aset_kode", "status_posisi", "jumlah_sp"]));
+    }
+
+    public function index(){
+        $user = User::get_user_from_token();
+
+        // dd($user);
+        $nama = $user->username;
+        $jabatan = DB::table("hak_akses")->where("hak_akses_id", $user->hak_akses_id)->first()->hak_akses_desc;
+        $title = "Semua Aset";
+
+        $aset = DB::table("data_aset")->get();
+        // dd($aset[0]->tgl_oleh);
+
+        return view("page.aset.aset",compact(["nama","jabatan","title","aset"]));
+
     }
 }

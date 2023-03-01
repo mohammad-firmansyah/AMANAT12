@@ -138,75 +138,12 @@
 
                     <li class="menu-title">Navigation</li>
 
-                    <li><a href="{{ url('home') }}"><i class="mdi mdi-view-dashboard"></i><span> Home </span></a></li>
+                    <li><a href="{{ url('dashboard') }}"><i class="mdi mdi-view-dashboard"></i><span> Home </span></a></li>
 
                     <li class="menu-title mt-2">Master</li>
 
-                    <li><a href="{{ url('master/user') }}"><i class="mdi mdi-account-outline"></i><span> User </span></a></li>
-                    <li><a href="{{ url('master/unit') }}"><i class="mdi mdi-home"></i><span> Unit </span></a></li>
-                    <li><a href="{{ url('master/hakakses') }}"><i class="mdi mdi-folder-key-outline"></i><span> Hak Akses </span></a></li>
-                    <li><a href="{{ url('master/komoditas') }}"><i class="mdi mdi-leaf-maple"></i><span> Komoditas </span></a></li>
-                    <li>
-                        <a href="#ruang" data-toggle="collapse">
-                            <i class="mdi mdi-home-import-outline"></i>
-                            <span> Ruang </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="ruang">
-                            <ul class="nav-second-level">
-                                <li><a href="{{ url('master/ruang') }}">Data Ruang</a></li>
-                                <li><a href="{{ url('master/ruang/tipe') }}">Tipe Ruang</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li><a href="{{ url('master/perangkat') }}"><i class="mdi mdi-tools"></i><span> Perangkat </span></a></li>
+                    <li><a href="{{ url('aset') }}"><i class="mdi mdi-city"></i><span> Aset </span></a></li>
 
-                    <!--- Menu Karet -->
-                    <li class="menu-title mt-2">Karet</li>
-
-                    <li>
-                        <a href="#karet_off_farm" data-toggle="collapse">
-                            <i class="mdi mdi-factory"></i>
-                            <span> Off Farm </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="karet_off_farm">
-                            <ul class="nav-second-level">
-                                <li><a href="{{ url('karet/pembalikan') }}">Pembalikan</a></li>
-                                <li><a href="{{ url('karet/sop') }}">SOP</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#karet_on_farm" data-toggle="collapse">
-                            <i class="mdi mdi-leaf"></i>
-                            <span> On Farm </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="karet_on_farm">
-                            <ul class="nav-second-level">
-                                <li><a href="ui-typography.html">Typography</a></li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <!-- Menu TMA Tebu -->
-
-                    <li class="menu-title mt-2">TMA Tebu</li>
-
-                    <li><a href="{{ url('tebu/datatebu') }}"><i class="mdi mdi-account-group"></i><span> data TMA Tebu </span></a></li>
-                    <li><a href="{{ url('tebu/datarenteng') }}"><i class="mdi mdi-account-group"></i><span> Master Renteng </span></a></li>
-                    <li><a href="{{ url('tebu/datapta') }}"><i class="mdi mdi-account-group"></i><span> Master PTA </span></a></li>
-
-                    <li class="menu-title mt-2">Tools TMA Tebu</li>
-
-                    <li><a href="{{ url('admin/tma/tools') }}"><i class="mdi mdi-account-group"></i><span> Reset Tarif TMA </span></a></li>
-
-                    <li class="menu-title mt-2">Dashboard</li>
-
-                    <li><a href="https://dashboard.ptpn12.com/action-login.php?3efb322dda34c1a7dbfb5da9742c3d06=d34b6c59ef0497d8ff246abd1049352e"><i class="mdi mdi-city"></i><span> Dashboard Produksi </span></a></li>
-
-                </ul>
 
             </div>
             @endif
@@ -364,13 +301,18 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                             <!-- item-->
-                            <a href="{{ url('logout') }}" class="dropdown-item notify-item">
-                                <i class="fe-log-out"></i>
-                                <span>Logout</span>
+
+                            <a href="#" class="dropdown-item notify-item">
+                                <i class="mdi mdi-account-outline"></i>
+                                <span>Profil</span>
                             </a>
                             <a href="#" class="dropdown-item notify-item" data-toggle="modal" data-target="#ResetPass">
                                 <i class="fa fa-key"></i>
                                 <span>Reset Password</span>
+                            </a>
+                            <a href="{{ url('logout') }}" class="dropdown-item notify-item">
+                                <i class="fe-log-out"></i>
+                                <span>Logout</span>
                             </a>
 
                         </div>

@@ -186,6 +186,9 @@ return [
          * Package Service Providers...
          */
 
+        App\Providers\UserServiceProvider::class,
+
+
         /*
          * Application Service Providers...
          */
@@ -194,6 +197,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
 
     ],
 
@@ -209,6 +213,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'UserHelpers' => App\Helpers\User::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
