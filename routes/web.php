@@ -25,3 +25,4 @@ Route::get('logout', [UserController::class,'logout'])->middleware("validateToke
 Route::post('reset-password', [UserController::class,'resetPassword'])->middleware("validateToken");
 
 Route::get('aset', [AsetController::class,'index'])->middleware("validateToken");
+Route::get('aset/{id}', [AsetController::class,'detail'])->middleware("validateToken");

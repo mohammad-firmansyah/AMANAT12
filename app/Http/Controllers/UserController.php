@@ -22,6 +22,8 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
+        
+
         if ($validator->fails()) {
             return redirect('/')
                         ->withErrors($validator)
@@ -30,8 +32,12 @@ class UserController extends Controller
 
         $validated = $request;
 
+        
         $user = DB::table("users")->where("username",$validated["username"])->get();
         if (count($user)) {
+
+            // $a = '$2y$10$h8QEktHn/L444v4gqG.nXeVFuuODoxh6KKhMehMgrB2CeTmEtNRxq';
+            // dd($validated["password"],Hash::check("123456", $a));
             if (Hash::check($validated["password"],$user[0]->user_pass)) {
                 $request->session()->put("token",Crypt::encryptString($user[0]->user_id));
                 return redirect("dashboard");

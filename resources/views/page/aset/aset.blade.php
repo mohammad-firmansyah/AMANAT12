@@ -37,12 +37,12 @@
                             <th>Tanggal</th>
                             <th>Nama</th>
                             <th>Nilai Aset</th>
-                            <th>Masa Susut</th>
                             <th>Nomor SAP</th>
+                            <th>Action</th>
+                            <th>Status</th>
+                            <th>Masa Susut</th>
                             <th>Jenis Aset</th>
                             <th>Afdeling</th>
-                            <th>Status</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,12 +54,19 @@
                             <td>{{$value->tgl_oleh}}</td>
                             <td>{{$value->aset_name}}</td>
                             <td>{{$value->nilai_oleh}}</td>
-                            <td>{{$value->masa_susut}}</td>
                             <td>{{$value->nomor_sap}}</td>
+                            <td>
+                                <a href="{{url('aset/'.$value->aset_id)}}" class="btn btn-success ">Detail</a>
+                                @if(($value->status_posisi_id % 2) != 0)
+                                <a href="#" class="btn btn-warning mx-2">Edit</a>
+                                @endif
+                                @if($jabatan == "Operator" && $value->status_posisi_id == 1 )
+                                <a href="#" class="btn btn-danger ">Delete</a>@endif
+                            </td>
+                            <td>{{$value->status_posisi}}</td>
+                            <td>{{$value->masa_susut}} Tahun</td>
                             <td>{{$value->aset_jenis}}</td>
                             <td>{{$value->afdeling_id}}</td>
-                            <td>{{$value->status_posisi}}</td>
-                            <td><a href="#" class="btn btn-sm-warning">Edit</a></td>
                         </tr>
                         @endforeach
                     </tbody>
