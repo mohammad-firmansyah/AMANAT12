@@ -58,7 +58,7 @@
                             <td>
                                 <a href="{{url('aset/'.$value->aset_id)}}" class="btn btn-success ">Detail</a>
                                 @if(($value->status_posisi_id % 2) != 0 && Str::lower($value->status_posisi) == Str::lower($jabatan))
-                                <a href="#" class="btn btn-warning mx-2">Edit</a>
+                                <a href="{{url('aset/edit/'.$value->aset_id)}}" class="btn btn-warning mx-2">Edit</a>
                                 @endif
                                 @if($jabatan == "Operator" && $value->status_posisi_id == 1 )
                                 <a href="#" class="btn btn-danger ">Delete</a>@endif

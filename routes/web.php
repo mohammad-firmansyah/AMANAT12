@@ -26,3 +26,5 @@ Route::post('reset-password', [UserController::class,'resetPassword'])->middlewa
 
 Route::get('aset', [AsetController::class,'index'])->middleware("validateToken");
 Route::get('aset/{id}', [AsetController::class,'detail'])->middleware("validateToken");
+Route::get('aset/edit/{id}', [AsetController::class,'edit'])->middleware("validateToken");
+Route::post('aset/{id}', [AsetController::class,'update'])->middleware("validateToken");

@@ -158,6 +158,58 @@ class AsetController extends Controller
 
     }
 
+    public function edit($id){
+
+        $user = User::get_user_from_token();
+
+        $nama = $user->username;
+        $jabatan = DB::table("hak_akses")->where("hak_akses_id", $user->hak_akses_id)->first()->hak_akses_desc;
+        $title = "Edit";
+        
+
+        $aset = DB::table("data_aset")->where("aset_id",$id)->first();
+        $aset->aset_jenis = DB::table("aset_jenis")->where("aset_jenis_id",$aset->aset_jenis)->first()->aset_jenis_desc;
+        $aset->aset_kondisi = DB::table("aset_kondisi")->where("aset_kondisi_id",$aset->aset_kondisi)->first()->aset_kondisi_desc;
+        $aset->aset_tipe = DB::table("aset_tipe")->where("aset_tipe_id",$aset->aset_tipe)->first()->aset_tipe_desc;
+        $aset->unit_id = DB::table("unit")->where('unit_id', $aset->unit_id)->first()->unit_desc; 
+        $aset->aset_sub_unit = DB::table("sub_unit")->where('sub_unit_id', $aset->aset_sub_unit)->first()->sub_unit_desc;
+        
+        $aset->afdeling_id = DB::table("afdeling")->where('afdeling_id', $aset->afdeling_id)->first()->afdeling_desc;
+
+        $aset_kode = DB::table("aset_kode")->where('aset_kode_id', $aset->aset_kode)->first();
+
+        // aset kode
+        $aset_kode_temp = "";
+        if ($aset_kode->aset_jenis == 1) {
+            $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_desc;
+        } else if ($aset_kode->aset_jenis == 2) {
+            $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+        } else {
+            $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+        }
+
+        $aset->aset_kode = $aset_kode_temp;
+
+        $aset->status_posisi = DB::table("status_posisi")->where('sp_id', $aset->status_posisi)->first()->sp_desc;
+
+        if (!isset($aset->afdeling_id)) {
+            $aset->afdeling_id = "-";
+        }
+
+        $now = date_create()->format('Y-m-d H:i:s');
+        $date2 = new DateTime($now);
+        $date = new DateTime($aset->tgl_oleh);
+
+        $interval_m = $date->diff($date2)->m;
+        $interval_y = $date->diff($date2)->y;
+        $umur_ekonomis_in_month = ($aset->masa_susut * 12) - (($interval_y * 12) + $interval_m);
+
+        $aset->umur_ekonomis = Aset::toUmurEkonomis($umur_ekonomis_in_month);
+        $aset->nilai_oleh = Aset::toRupiah($aset->nilai_oleh);
+        $aset->nilai_residu = Aset::toRupiah($aset->nilai_residu);
+        
+        return view("page.aset.edit",compact(["aset","title","nama","jabatan"]));
+    }
     public function detail($id){
 
         $user = User::get_user_from_token();
