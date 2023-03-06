@@ -152,7 +152,6 @@ class AsetController extends Controller
         }
         
 
-        // dd($aset[0]->tgl_oleh);
 
         return view("page.aset.aset",compact(["nama","jabatan","title","aset"]));
 
@@ -168,27 +167,32 @@ class AsetController extends Controller
         
 
         $aset = DB::table("data_aset")->where("aset_id",$id)->first();
-        $aset->aset_jenis = DB::table("aset_jenis")->where("aset_jenis_id",$aset->aset_jenis)->first()->aset_jenis_desc;
-        $aset->aset_kondisi = DB::table("aset_kondisi")->where("aset_kondisi_id",$aset->aset_kondisi)->first()->aset_kondisi_desc;
-        $aset->aset_tipe = DB::table("aset_tipe")->where("aset_tipe_id",$aset->aset_tipe)->first()->aset_tipe_desc;
+        $all_tipe = DB::table("aset_tipe")->get();
+        $all_jenis = DB::table("aset_jenis")->get();
+        $all_kode = DB::table("aset_kode")->get();
+        $all_sap = DB::table("sap")->get();
+        $all_kondisi = DB::table("aset_kondisi")->get();
+
+        // $aset->aset_jenis = DB::table("aset_jenis")->where("aset_jenis_id",$aset->aset_jenis)->first()->aset_jenis_desc;
+        // $aset->aset_kondisi = DB::table("aset_kondisi")->where("aset_kondisi_id",$aset->aset_kondisi)->first()->aset_kondisi_desc;
+        // $aset->aset_tipe = DB::table("aset_tipe")->where("aset_tipe_id",$aset->aset_tipe)->first()->aset_tipe_desc;
         $aset->unit_id = DB::table("unit")->where('unit_id', $aset->unit_id)->first()->unit_desc; 
         $aset->aset_sub_unit = DB::table("sub_unit")->where('sub_unit_id', $aset->aset_sub_unit)->first()->sub_unit_desc;
         
         $aset->afdeling_id = DB::table("afdeling")->where('afdeling_id', $aset->afdeling_id)->first()->afdeling_desc;
 
-        $aset_kode = DB::table("aset_kode")->where('aset_kode_id', $aset->aset_kode)->first();
-
+        // $aset_kode = DB::table("aset_kode")->where('aset_kode_id', $aset->aset_kode)->first();
         // aset kode
-        $aset_kode_temp = "";
-        if ($aset_kode->aset_jenis == 1) {
-            $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_desc;
-        } else if ($aset_kode->aset_jenis == 2) {
-            $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
-        } else {
-            $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
-        }
+        // $aset_kode_temp = "";
+        // if ($aset_kode->aset_jenis == 1) {
+        //     $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_desc;
+        // } else if ($aset_kode->aset_jenis == 2) {
+        //     $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+        // } else {
+        //     $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+        // }
 
-        $aset->aset_kode = $aset_kode_temp;
+        // $aset->aset_kode = $aset_kode_temp;
 
         $aset->status_posisi = DB::table("status_posisi")->where('sp_id', $aset->status_posisi)->first()->sp_desc;
 
@@ -208,7 +212,7 @@ class AsetController extends Controller
         $aset->nilai_oleh = Aset::toRupiah($aset->nilai_oleh);
         $aset->nilai_residu = Aset::toRupiah($aset->nilai_residu);
         
-        return view("page.aset.edit",compact(["aset","title","nama","jabatan"]));
+        return view("page.aset.edit",compact(["aset","title","nama","jabatan",'all_tipe','all_jenis','all_kode','all_sap','all_kondisi']));
     }
     public function detail($id){
 

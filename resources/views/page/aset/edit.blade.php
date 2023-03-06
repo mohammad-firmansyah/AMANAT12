@@ -3,6 +3,8 @@
 @section('nama', $nama ?? '')
 @section('jabatan', $jabatan ?? '')
 
+
+
 @section('pluginCSS')
 <!-- third party css -->
 <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -11,6 +13,11 @@
 <link href="{{ asset('assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 <!-- third party css end -->
 @endsection
 
@@ -39,7 +46,14 @@
                             <div class="form-group ">
                                 <label for="aset_tipe">Tipe Aset</label>
                                 <select class="form-control" id="aset_tipe" name="aset_tipe">
-                                    <option>1</option>
+                                    @foreach($all_tipe as $aset_tipe)
+
+                                    @if( $aset->aset_tipe == $aset_tipe->aset_tipe_id )
+                                    <option value="{{$aset_tipe->aset_tipe_id}}" selected>{{$aset_tipe->aset_tipe_desc}}</option>
+                                    @else
+                                    <option value="{{$aset_tipe->aset_tipe_id}}">{{$aset_tipe->aset_tipe_desc}}</option>
+                                    @endif
+                                    @endforeach
                                 </select>
 
                             </div>
@@ -50,9 +64,14 @@
                             <div class="form-group">
                                 <label for="aset_jenis">Aset Jenis</label>
                                 <select class="form-control" id="aset_jenis" name="aset_jenis">
-                                    <option>tanaman</option>
-                                    <option>non tanaman</option>
-                                    <option>kayu</option>
+                                    @foreach($all_jenis as $aset_jenis)
+
+                                    @if( $aset->aset_jenis == $aset_jenis->aset_jenis_id )
+                                    <option value="{{$aset_jenis->aset_jenis_id}}" selected>{{$aset_jenis->aset_jenis_desc}}</option>
+                                    @else
+                                    <option value="{{$aset_jenis->aset_jenis_id}}">{{$aset_jenis->aset_jenis_desc}}</option>
+                                    @endif
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -66,7 +85,15 @@
                             <div class="form-group ">
                                 <label for="aset_kondisi">Kondisi Aset</label>
                                 <select class="form-control" id="aset_kondisi" name="aset_kondisi">
-                                    <option>1</option>
+                                    @foreach($all_kondisi as $aset_kondisi)
+
+
+                                    @if( $aset->aset_kondisi == $aset_kondisi->aset_kondisi_id )
+                                    <option value="{{$aset_kondisi->aset_kondisi_id}}" selected>{{$aset_kondisi->aset_kondisi_desc}}</option>
+                                    @else
+                                    <option value="{{$aset_kondisi->aset_kondisi_id}}">{{$aset_kondisi->aset_kondisi_desc}}</option>
+                                    @endif
+                                    @endforeach
                                 </select>
 
                             </div>
@@ -77,7 +104,32 @@
                             <div class="form-group">
                                 <label for="aset_kode">Kode Aset</label>
                                 <select class="form-control" id="aset_kode" name="aset_kode">
-                                    <option>1</option>
+                                    @foreach($all_kode as $aset_kode)
+                                    <?php
+                                    $aset_kode_temp = "";
+                                    if ($aset_kode->aset_jenis == 1) {
+                                        $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_desc;
+                                    } else if ($aset_kode->aset_jenis == 2) {
+                                        $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+                                    } else {
+                                        $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+                                    }
+
+                                    $aset->aset_kode = $aset_kode_temp;
+
+                                    ?>
+
+                                    @if($aset->aset_jenis == $aset_kode->aset_jenis)
+                                    @if( $aset->aset_kode == $aset_kode->aset_kode_id )
+                                    <option value="{{$aset_kode->aset_kode_id}}" selected>
+
+                                        {{$aset_kode_temp}}
+                                    </option>
+                                    @else
+                                    <option value="{{$aset_kode->aset_kode_id}}">{{$aset_kode_temp}}</option>
+                                    @endif
+                                    @endif
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -91,7 +143,7 @@
                             <div class="form-group ">
                                 <label for="unit">Unit</label>
                                 <select class="form-control" id="unit" name="unit" disabled>
-                                    <option>1</option>
+                                    <option>{{$aset->unit_id}}</option>
                                 </select>
 
                             </div>
@@ -102,27 +154,24 @@
                             <div class="form-group">
                                 <label for="sub_unit">Sub Unit</label>
                                 <select class="form-control" id="sub_unit" name="sub_unit" disabled>
-                                    <option>1</option>
+                                    <option>{{$aset->aset_sub_unit}}</option>
                                 </select>
                             </div>
                         </div>
 
+                        @if($aset->aset_sub_unit == "Afdeling")
                         <div class="col">
-
                             <div class="form-group ">
                                 <label for="afdeling">Afdeling</label>
                                 <select class="form-control" id="afdeling" name="afdeling" disabled>
-                                    <option>1</option>
+                                    <option>{{$aset->afdeling_id}}</option>
                                 </select>
 
                             </div>
                         </div>
+                        @endif
                     </div>
                     <div class="row">
-
-
-
-
 
                         <div class="col">
 
@@ -130,19 +179,18 @@
 
                                 <label for="nomor_sap">Nomor SAP</label>
                                 <select class="form-control" id="nomor_sap" name="nomor_sap">
-                                    <option>1</option>
+                                    @foreach($all_sap as $sap)
+                                    <option value="{{$sap->sap_id}}>">{{$sap->sap_desc}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-
-
                         <div class="col">
-
                             <div class="form-group ">
                                 <label for="exampleFormControlInput1">Nama Aset</label>
-                                <input name="aset_name" type="text" class="form-control" id="nama_aset" placeholder="Nama Aset">
+                                <input name="aset_name" type="text" class="form-control" id="nama_aset" placeholder="Nama Aset" value="{{$aset->aset_name}}">
 
                             </div>
                         </div>
@@ -154,7 +202,11 @@
 
                             <div class="form-group ">
                                 <label for="foto_aset1">Foto Aset 1</label><br>
-                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" id="foto_aset1">
+                                <label for="input_foto_aset1">
+                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" height="120" id="foto_aset1">
+                                </label>
+
+                                <input type="file" class="hidden" id="input_foto_aset1" name="foto_aset1" onchange="readURL(this,1)">
 
                             </div>
                         </div>
@@ -162,103 +214,134 @@
 
                             <div class="form-group ">
                                 <label for="foto_aset2">Foto Aset 2</label><br>
-                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 2" width="150" id="foto_aset2">
+                                <label for="input_foto_aset2">
+                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" height="120" id="foto_aset2">
+                                </label>
 
+
+                                <input type="file" class="hidden" id="input_foto_aset2" name="foto_aset2" onchange="readURL(this,2)">
                             </div>
                         </div>
                         <div class="col">
 
                             <div class="form-group ">
-                                <label for="foto_aset33">Foto Aset 3</label><br>
-                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 3" width="150" id="foto_aset_3">
+                                <label for="foto_aset3">Foto Aset 3</label><br>
+                                <label for="input_foto_aset3">
+                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 3" width="150" height="120" id="foto_aset3">
+                                </label>
 
+                                <input type="file" class="hidden" id="input_foto_aset3" name="foto_aset3" onchange="readURL(this,3)">
                             </div>
                         </div>
                         <div class="col">
 
                             <div class="form-group ">
                                 <label for="foto_aset_4">Foto Aset 4</label><br>
-                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 4" width="150" id="foto_aset_4">
+                                <label for="input_foto_aset4">
+                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" height="120" id="foto_aset4">
+                                </label>
 
+                                <input type="file" class="hidden" id="input_foto_aset4" name="foto_aset2" onchange="readURL(this,4)">
                             </div>
                         </div>
+
+                        @if($aset->aset_jenis == 1)
                         <div class="col">
 
                             <div class="form-group ">
                                 <label for="exampleFormControlInput1">Foto Aset 5</label><br>
-                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" id="foto_aset_5">
+                                <label for="input_foto_aset5">
+                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 5" width="150" height="120" id="foto_aset5">
+                                </label>
+
+                                <input type="file" class="hidden" id="input_foto_aset5" name="foto_aset5" onchange="readURL(this,5)">
+
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                    @if($aset->aset_jenis == 1)
+                    <div class="row mb-2">
+                        <div class="col">
+                            <a href="{{$aset->geo_tag1}}" class="btn btn-success w-100">MAP</a>
+                        </div>
+                        <div class="col">
+                            <a href="{{$aset->geo_tag2}}" class="btn btn-success w-100">MAP</a>
+                        </div>
+                        <div class="col">
+                            <a href="{{$aset->geo_tag3}}" class="btn btn-success w-100">MAP</a>
+                        </div>
+                        <div class="col">
+                            <a href="{{$aset->geo_tag4}}" class="btn btn-success w-100">MAP</a>
+                        </div>
+                        <div class="col">
+                            <a href="{{$aset->geo_tag5}}" class="btn btn-success w-100">MAP</a>
+                        </div>
+                    </div>
+
+                    @else
+                    <div class="row mb-2">
+                        <div class="col">
+                            <a href="{{$aset->geo_tag1}}" class="btn btn-success w-100">MAP</a>
+                        </div>
+                    </div>
+
+                    @endif
+                    @if($aset->aset_jenis==2)
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group ">
+                                <label for="persen_kondisi">Persen Kondisi</label>
+                                <input type="text" class="form-control" id="persen_kondisi" name="persen_kondisi" value="{{$aset->persen_kondisi}}">
 
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <a href="#" class="btn btn-success w-100">MAP</a>
-                        </div>
-                        <div class="col">
-                            <a href="#" class="btn btn-success w-100">MAP</a>
-                        </div>
-                        <div class="col">
-                            <a href="#" class="btn btn-success w-100">MAP</a>
-                        </div>
-                        <div class="col">
-                            <a href="#" class="btn btn-success w-100">MAP</a>
-                        </div>
-                        <div class="col">
-                            <a href="#" class="btn btn-success w-100">MAP</a>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col">
-                            <a href="#" class="btn btn-success w-100">MAP</a>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
+                    @endif
+                    <div class="row ">
                         <div class="col">
 
                             <div class="form-group ">
                                 <label for="hgu">HGU</label>
-                                <input type="text" class="form-control" id="hgu" name="hgu">
+                                <input type="text" class="form-control" id="hgu" name="hgu" value="{{$aset->hgu}}">
 
                             </div>
                         </div>
 
+                        @if($aset->aset_jenis==1)
                         <div class="col">
-
                             <div class="form-group">
                                 <label for="aset_luas">Luas Areal (Ha)</label>
-                                <input class="form-control" id="aset_luas" name="aset_luas">
+                                <input class="form-control" id="aset_luas" name="aset_luas" value="{{$aset->aset_luas}}">
                             </div>
-
                         </div>
-
+                        @else
                         <div class="col">
 
                             <div class="form-group">
                                 <label for="aset_luas">Kapasitas/Luas Bangunan</label>
-                                <input class="form-control" id="aset_luas" name="aset_luas">
+                                <input class="form-control" id="aset_luas" name="aset_luas" value="{{$aset->aset_luas}}">
                             </div>
 
                             <div class="form-group">
                                 <select class="form-control" id="satuan_luas" name="satuan_luas">
-                                    <option>Ha</option>
+                                    <option value="">Ha</option>
                                     <option>m2</option>
                                     <option>Item</option>
                                 </select>
                             </div>
                         </div>
 
-
+                        @endif
                     </div>
-                    
+
+                    @if($aset->aset_jenis == 1)
                     <div class="row mt-3">
                         <div class="col">
 
                             <div class="form-group ">
                                 <label for="pop_total_ini">Populasi Total Saat Ini</label>
-                                <input type="text" class="form-control" id="pop_total_ini" name="pop_total_ini">
+                                <input type="text" class="form-control" id="pop_total_ini" name="pop_total_ini" value="{{$aset->pop_total_ini}}">
 
                             </div>
                         </div>
@@ -266,19 +349,19 @@
 
                             <div class="form-group ">
                                 <label for="pop_total_std">Populasi Total Standar</label>
-                                <input type="text" class="form-control" id="pop_total_std" name="pop_total_std">
+                                <input type="text" class="form-control" id="pop_total_std" name="pop_total_std" value="{{$aset->pop_total_std}}">
 
                             </div>
                         </div>
 
                     </div>
-                   
+
                     <div class="row mt-3">
                         <div class="col">
 
                             <div class="form-group ">
                                 <label for="pop_hektar_ini">Populasi Hektar Saat Ini</label>
-                                <input type="text" class="form-control" id="pop_hektar_ini" name="pop_hektar_ini">
+                                <input type="text" class="form-control" id="pop_hektar_ini" name="pop_hektar_ini" value="{{$aset->pop_hektar_ini}}">
 
                             </div>
                         </div>
@@ -286,81 +369,92 @@
 
                             <div class="form-group ">
                                 <label for="pop_hektar_std">Populasi Hektar Standar</label>
-                                <input type="text" class="form-control" id="pop_hektar_std" name="pop_hektar_std">
+                                <input type="text" class="form-control" id="pop_hektar_std" name="pop_hektar_std" value="{{$aset->pop_hektar_std}}">
 
                             </div>
                         </div>
 
                     </div>
-                   
+                    @endif
+
                     <div class="row mt-3">
                         <div class="col">
 
                             <div class="form-group ">
                                 <label for="nilai_oleh">Nilai Perolehan</label>
-                                <input type="text" class="form-control" id="nilai_oleh" name="nilai_oleh">
+                                <input type="text" class="form-control" id="nilai_oleh" name="nilai_oleh" value="{{$aset->nilai_oleh}}">
 
                             </div>
                         </div>
 
                         <div class="col">
 
+
+                            <label for="tgl_oleh">Tanggal Perolehan</label>
+                            <input type="date" class="form-control" id="tgl_oleh" name="tgl_oleh" value="{{$aset->tgl_oleh}}">
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+
                             <div class="form-group ">
-                                <label for="tgl_oleh">Tanngal Perolehan</label>
-                                <input type="text" class="form-control" id="tgl_oleh" name="tgl_oleh">
+                                <label for="masa_susut">Masa Penyusutan</label>
+                                <input type="text" class="form-control" id="masa_susut" name="masa_susut" value="{{$aset->masa_susut}}">
 
                             </div>
                         </div>
 
+                        <div class="col">
+
+
+                            <label for="nilai_residu">Nilai Residu</label>
+                            <input type="text" class="form-control" id="nilai_residu" name="nilai_residu" value="{{$aset->nilai_residu}}">
+
+                        </div>
+
                     </div>
-                </form>
+                    <div class="row">
+
+                        <div class="col">
+
+                            <label for="keterangan">Keterangan</label>
+                            <textarea type="text" class="form-control" id="keterangan" name="keterangan">
+                                    {{$aset->keterangan}}
+                        </textarea>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 mt-2">Simpan</button>
 
             </div>
+            </form>
+
         </div>
     </div>
+</div>
 </div> <!-- end row -->
 
 
-<div id="modal_ubah" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="form_ubah" method="post" action="{!! url('master/komoditas/update') !!}">
-                <div class="modal-header">
-                    <h4 class="modal-title">Modal Ubah Data</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body p-4">
-                    <input type="hidden" id="ubah_id" name="id">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="ubah_nama" class="control-label">Nama</label>
-                                <input type="text" class="form-control" id="ubah_nama" name="nama" placeholder="Nama Komoditas" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group no-margin">
-                                <label for="ubah_keterangan" class="control-label">Keterangan</label>
-                                <textarea class="form-control" id="ubah_keterangan" name="keterangan" placeholder="Keterangan"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div><!-- /.modal -->
-
 @endsection
+
 
 @section('pluginJS')
 <!-- third party js -->
+<script>
+    function readURL(input, i) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#foto_aset' + i).attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
