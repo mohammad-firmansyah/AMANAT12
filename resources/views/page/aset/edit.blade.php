@@ -37,7 +37,7 @@
             <div class="card-body">
                 <h4 class="header-title">Data {{ $title }}</h4><br>
 
-                <form action="{{url('aset/'.$aset->aset_id)}}" method="post">
+                <form action="{{url('aset/'.$aset->aset_id)}}" method="post" enctype="multipart/form-data">
 
 
                     <div class="row">
@@ -202,11 +202,8 @@
 
                             <div class="form-group ">
                                 <label for="foto_aset1">Foto Aset 1</label><br>
-                                <label for="input_foto_aset1">
-                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" height="120" id="foto_aset1">
-                                </label>
+                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" height="120" id="foto_aset1">
 
-                                <input type="file" class="hidden" id="input_foto_aset1" name="foto_aset1" onchange="readURL(this,1)">
 
                             </div>
                         </div>
@@ -214,34 +211,23 @@
 
                             <div class="form-group ">
                                 <label for="foto_aset2">Foto Aset 2</label><br>
-                                <label for="input_foto_aset2">
-                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" height="120" id="foto_aset2">
-                                </label>
+                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" height="120" id="foto_aset2">
 
-
-                                <input type="file" class="hidden" id="input_foto_aset2" name="foto_aset2" onchange="readURL(this,2)">
                             </div>
                         </div>
                         <div class="col">
 
                             <div class="form-group ">
                                 <label for="foto_aset3">Foto Aset 3</label><br>
-                                <label for="input_foto_aset3">
-                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 3" width="150" height="120" id="foto_aset3">
-                                </label>
+                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 3" width="150" height="120" id="foto_aset3">
 
-                                <input type="file" class="hidden" id="input_foto_aset3" name="foto_aset3" onchange="readURL(this,3)">
                             </div>
                         </div>
                         <div class="col">
 
                             <div class="form-group ">
                                 <label for="foto_aset_4">Foto Aset 4</label><br>
-                                <label for="input_foto_aset4">
-                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" height="120" id="foto_aset4">
-                                </label>
-
-                                <input type="file" class="hidden" id="input_foto_aset4" name="foto_aset2" onchange="readURL(this,4)">
+                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 1" width="150" height="120" id="foto_aset4">
                             </div>
                         </div>
 
@@ -250,11 +236,7 @@
 
                             <div class="form-group ">
                                 <label for="exampleFormControlInput1">Foto Aset 5</label><br>
-                                <label for="input_foto_aset5">
-                                    <img src="{{asset('assets/images/default-img.png')}}" alt="default img 5" width="150" height="120" id="foto_aset5">
-                                </label>
-
-                                <input type="file" class="hidden" id="input_foto_aset5" name="foto_aset5" onchange="readURL(this,5)">
+                                <img src="{{asset('assets/images/default-img.png')}}" alt="default img 5" width="150" height="120" id="foto_aset5">
 
                             </div>
                         </div>
@@ -341,7 +323,7 @@
 
                             <div class="form-group ">
                                 <label for="pop_total_ini">Populasi Total Saat Ini</label>
-                                <input type="text" class="form-control" id="pop_total_ini" name="pop_total_ini" value="{{$aset->pop_total_ini}}">
+                                <input type="text" class="form-control" id="pop_total_ini" name="pop_pohon_saat_ini" value="{{$aset->pop_pohon_saat_ini}}">
 
                             </div>
                         </div>
@@ -349,7 +331,7 @@
 
                             <div class="form-group ">
                                 <label for="pop_total_std">Populasi Total Standar</label>
-                                <input type="text" class="form-control" id="pop_total_std" name="pop_total_std" value="{{$aset->pop_total_std}}">
+                                <input type="text" class="form-control" id="pop_total_std" name="pop_standar" value="{{$aset->pop_standar}}">
 
                             </div>
                         </div>
@@ -361,7 +343,7 @@
 
                             <div class="form-group ">
                                 <label for="pop_hektar_ini">Populasi Hektar Saat Ini</label>
-                                <input type="text" class="form-control" id="pop_hektar_ini" name="pop_hektar_ini" value="{{$aset->pop_hektar_ini}}">
+                                <input type="text" class="form-control" id="pop_hektar_ini" name="pop_per_ha" value="{{$aset->pop_per_ha}}" disabled>
 
                             </div>
                         </div>
@@ -369,7 +351,7 @@
 
                             <div class="form-group ">
                                 <label for="pop_hektar_std">Populasi Hektar Standar</label>
-                                <input type="text" class="form-control" id="pop_hektar_std" name="pop_hektar_std" value="{{$aset->pop_hektar_std}}">
+                                <input type="text" class="form-control" id="pop_hektar_std" name="presentase_pop_per_ha" disabled value="{{$aset->presentase_pop_per_ha}}">
 
                             </div>
                         </div>
@@ -391,7 +373,7 @@
 
 
                             <label for="tgl_oleh">Tanggal Perolehan</label>
-                            <input type="date" class="form-control" id="tgl_oleh" name="tgl_oleh" value="{{$aset->tgl_oleh}}">
+                            <input type="datetime-local" class="form-control" id="tgl_oleh" name="tgl_oleh" value="{{$aset->tgl_oleh}}">
 
                         </div>
                     </div>
@@ -399,8 +381,36 @@
                         <div class="col">
 
                             <div class="form-group ">
+                                <label for="nomor_bast">Nomor BAST</label>
+                                <input type="text" class="form-control" id="nomor_bast" name="nomor_bast" value="{{$aset->nomor_bast}}">
+
+                            </div>
+                        </div>
+
+                        <div class="col">
+
+                            <label>File BAST</label>
+                            <br>
+                            <label for="file_bast">
+                            <a class="btn btn-warning">
+                                <strong class="text-white">Upload</strong>
+                            </a>
+                            </label>
+                            <input type="file" class="hidden" id="file_bast" name="file_bast" value="{{$aset->file_bast}}">
+                            
+                            <a class="btn btn-success">
+                                <strong class="text-white">Download</strong>
+                            </a>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+
+                            <div class="form-group ">
                                 <label for="masa_susut">Masa Penyusutan</label>
-                                <input type="text" class="form-control" id="masa_susut" name="masa_susut" value="{{$aset->masa_susut}}">
+                                <input type="text" class="form-control" id="masa_susut" name="masa_susut" value="{{$aset->masa_susut}} Tahun">
 
                             </div>
                         </div>
@@ -420,8 +430,8 @@
 
                             <label for="keterangan">Keterangan</label>
                             <textarea type="text" class="form-control" id="keterangan" name="keterangan">
-                                    {{$aset->keterangan}}
-                        </textarea>
+                            {{$aset->keterangan}}
+                            </textarea>
                         </div>
 
                     </div>
