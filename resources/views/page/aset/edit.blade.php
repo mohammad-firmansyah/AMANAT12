@@ -195,7 +195,38 @@
                             </div>
                         </div>
                     </div>
+                    @if(isset($aset->berita_acara))
+                    <div class="row mt-3">
+                        <div class="col">
+
+                            <div class="form-group ">
+                                <label for="berita_acara">Berita Acara</label>
+                                <input type="text" class="form-control" disabled id="berita_acara" name="berita_acara" value="{{$aset->berita_acara}}">
+
+                            </div>
+                        </div>
+
+                        <div class="col">
+
+                            <label>File BA</label>
+                            <br>
+                            <label for="file_ba">
+                            <a class="btn btn-warning">
+                                <strong class="text-white">Upload</strong>
+                            </a>
+                            </label>
+                            <input type="file" class="hidden" id="file_ba" name="file_ba" value="{{$aset->berita_acara}}">
+
+                            <a class="btn btn-success">
+                                <strong class="text-white">Download</strong>
+                            </a>
+
+
+                        </div>
+                    </div>
+                    @endif
                     <div class="row">
+
 
 
                         <div class="col">
@@ -397,12 +428,12 @@
                             </a>
                             </label>
                             <input type="file" class="hidden" id="file_bast" name="file_bast" value="{{$aset->file_bast}}">
-                            
+
                             <a class="btn btn-success">
                                 <strong class="text-white">Download</strong>
                             </a>
-                            
-                            
+
+
                         </div>
                     </div>
                     <div class="row mt-3">
