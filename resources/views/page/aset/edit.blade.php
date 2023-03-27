@@ -31,7 +31,7 @@
 
 @section('content')
 
-<div class="row">
+<div class="row" >
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -40,10 +40,10 @@
                 <form action="{{url('aset/'.$aset->aset_id)}}" method="post" enctype="multipart/form-data">
 
 
-                    <div class="row">
+                    <div class="row" id="row1">
                         <div class="col">
 
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <label for="aset_tipe">Tipe Aset</label>
                                 <select class="form-control" id="aset_tipe" name="aset_tipe">
                                     @foreach($all_tipe as $aset_tipe)
@@ -76,13 +76,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
 
-
-
+                    <div class="row" id="row2">
                         <div class="col">
 
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <label for="aset_kondisi">Kondisi Aset</label>
                                 <select class="form-control" id="aset_kondisi" name="aset_kondisi">
                                     @foreach($all_kondisi as $aset_kondisi)
@@ -134,9 +132,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
 
-
+                    <div class="row" id="row3">
 
                         <div class="col">
 
@@ -171,7 +168,7 @@
                         </div>
                         @endif
                     </div>
-                    <div class="row">
+                    <div class="row" id="row4">
 
                         <div class="col">
 
@@ -186,7 +183,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="row5">
                         <div class="col">
                             <div class="form-group ">
                                 <label for="exampleFormControlInput1">Nama Aset</label>
@@ -196,7 +193,7 @@
                         </div>
                     </div>
                     @if(isset($aset->berita_acara))
-                    <div class="row mt-3">
+                    <div class="row mt-3" id="row6">
                         <div class="col">
 
                             <div class="form-group ">
@@ -225,11 +222,9 @@
                         </div>
                     </div>
                     @endif
-                    <div class="row">
+                    <div class="row" id="row7">
 
-
-
-                        <div class="col">
+                        <div class="col" id="foto_aset1_col">
 
                             <div class="form-group ">
                                 <label for="foto_aset1">Foto Aset 1</label><br>
@@ -238,7 +233,7 @@
 
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col" id="foto_aset2_col">
 
                             <div class="form-group ">
                                 <label for="foto_aset2">Foto Aset 2</label><br>
@@ -246,7 +241,7 @@
 
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col" id="foto_aset3_col">
 
                             <div class="form-group ">
                                 <label for="foto_aset3">Foto Aset 3</label><br>
@@ -254,7 +249,7 @@
 
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col" id="foto_aset4_col">
 
                             <div class="form-group ">
                                 <label for="foto_aset_4">Foto Aset 4</label><br>
@@ -263,7 +258,7 @@
                         </div>
 
                         @if($aset->aset_jenis == 1)
-                        <div class="col">
+                        <div class="col" id="foto_aset5_col">
 
                             <div class="form-group ">
                                 <label for="exampleFormControlInput1">Foto Aset 5</label><br>
@@ -274,35 +269,35 @@
                         @endif
                     </div>
                     @if($aset->aset_jenis == 1)
-                    <div class="row mb-2">
-                        <div class="col">
+                    <div class="row mb-2" id="row9">
+                        <div class="col" id="geo_tag1_col">
                             <a href="{{$aset->geo_tag1}}" class="btn btn-success w-100">MAP</a>
                         </div>
-                        <div class="col">
+                        <div class="col" id="geo_tag2_col">
                             <a href="{{$aset->geo_tag2}}" class="btn btn-success w-100">MAP</a>
                         </div>
-                        <div class="col">
+                        <div class="col" id="geo_tag3_col">
                             <a href="{{$aset->geo_tag3}}" class="btn btn-success w-100">MAP</a>
                         </div>
-                        <div class="col">
+                        <div class="col" id="geo_tag4_col">
                             <a href="{{$aset->geo_tag4}}" class="btn btn-success w-100">MAP</a>
                         </div>
-                        <div class="col">
+                        <div class="col" id="geo_tag5_col">
                             <a href="{{$aset->geo_tag5}}" class="btn btn-success w-100">MAP</a>
                         </div>
                     </div>
 
                     @else
-                    <div class="row mb-2">
-                        <div class="col">
+                    <div class="row mb-2" id="row10">
+                        <div class="col" id="geo_tag1_non_tan_col">
                             <a href="{{$aset->geo_tag1}}" class="btn btn-success w-100">MAP</a>
                         </div>
                     </div>
 
                     @endif
                     @if($aset->aset_jenis==2)
-                    <div class="row">
-                        <div class="col">
+                    <div class="row" id="row11">
+                        <div class="col" >
                             <div class="form-group ">
                                 <label for="persen_kondisi">Persen Kondisi</label>
                                 <input type="text" class="form-control" id="persen_kondisi" name="persen_kondisi" value="{{$aset->persen_kondisi}}">
@@ -312,7 +307,7 @@
                     </div>
                     @endif
                     <div class="row ">
-                        <div class="col">
+                        <div class="col" id="hgu_col">
 
                             <div class="form-group ">
                                 <label for="hgu">HGU</label>
@@ -322,14 +317,14 @@
                         </div>
 
                         @if($aset->aset_jenis==1)
-                        <div class="col">
+                        <div class="col" id="aset_luas_tanaman_col">
                             <div class="form-group">
                                 <label for="aset_luas">Luas Areal (Ha)</label>
                                 <input class="form-control" id="aset_luas" name="aset_luas" value="{{$aset->aset_luas}}">
                             </div>
                         </div>
                         @else
-                        <div class="col">
+                        <div class="col" id="aset_luas_nontan_col">
 
                             <div class="form-group">
                                 <label for="aset_luas">Kapasitas/Luas Bangunan</label>
@@ -349,8 +344,8 @@
                     </div>
 
                     @if($aset->aset_jenis == 1)
-                    <div class="row mt-3">
-                        <div class="col">
+                    <div class="row mt-3" id="row12">
+                        <div class="col" >
 
                             <div class="form-group ">
                                 <label for="pop_total_ini">Populasi Total Saat Ini</label>
@@ -370,7 +365,7 @@
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col">
+                        <div class="col" id="row13">
 
                             <div class="form-group ">
                                 <label for="pop_hektar_ini">Populasi Hektar Saat Ini</label>
@@ -390,7 +385,7 @@
                     </div>
                     @endif
 
-                    <div class="row mt-3">
+                    <div class="row mt-3" id="row14">
                         <div class="col">
 
                             <div class="form-group ">
@@ -408,7 +403,7 @@
 
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    <div class="row mt-3"id="row15">
                         <div class="col">
 
                             <div class="form-group ">
@@ -436,7 +431,7 @@
 
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    <div class="row mt-3" id="row16">
                         <div class="col">
 
                             <div class="form-group ">
@@ -455,7 +450,7 @@
                         </div>
 
                     </div>
-                    <div class="row">
+                    <div class="row" id="row17">
 
                         <div class="col">
 
