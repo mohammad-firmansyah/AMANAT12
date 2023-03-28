@@ -3,8 +3,6 @@
 @section('nama', $nama ?? '')
 @section('jabatan', $jabatan ?? '')
 
-
-
 @section('pluginCSS')
 <!-- third party css -->
 <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -183,6 +181,33 @@
                         </div>
                     </div>
 
+                      <div class="row" id="sistem_tanam_row">
+                        <div class="col">
+
+                            <div class="form-group">
+                                <label for="aset_tipe">Sistem Tanam</label>
+                                <select class="form-control" id="sistem_tanam" name="sistem_tanam">
+                                @foreach($all_sistem_tanam as $sistem_tanam)
+                                    @if( $aset->sistem_tanam == $sistem_tanam->st_id )
+                                    <option value="{{$sistem_tanam->st_id}}" selected>{{$sistem_tanam->st_desc}}</option>
+                                    @else
+                                    <option value="{{$sistem_tanam->st_id }}">{{$sistem_tanam->st_desc}}</option>
+                                    @endif
+                                @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col">
+
+                            <div class="form-group">
+                                <label for="aset_jenis">Tahun Tanam</label>
+                                <input name="tahun_tanam" type="text" class="form-control" id="tahun_tanam" placeholder="tahun tanam" value="{{$aset->tahun_tanam}}">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row" id="row3">
 
                         <div class="col">
@@ -242,7 +267,6 @@
                             </div>
                         </div>
                     </div>
-                    @if(isset($aset->berita_acara))
                     <div class="row mt-3" id="row6">
                         <div class="col">
 
@@ -271,7 +295,6 @@
 
                         </div>
                     </div>
-                    @endif
                     <div class="row" id="row7">
 
                         <div class="col" id="foto_aset1_col">
@@ -307,7 +330,6 @@
                             </div>
                         </div>
 
-                        @if($aset->aset_jenis == 1)
                         <div class="col" id="foto_aset5_col">
 
                             <div class="form-group ">
@@ -316,9 +338,7 @@
 
                             </div>
                         </div>
-                        @endif
                     </div>
-                    @if($aset->aset_jenis == 1)
                     <div class="row mb-2" id="row9">
                         <div class="col" id="geo_tag1_col">
                             <a href="{{$aset->geo_tag1}}" class="btn btn-success w-100">MAP</a>
@@ -337,15 +357,12 @@
                         </div>
                     </div>
 
-                    @else
                     <div class="row mb-2" id="row10">
                         <div class="col" id="geo_tag1_non_tan_col">
                             <a href="{{$aset->geo_tag1}}" class="btn btn-success w-100">MAP</a>
                         </div>
                     </div>
 
-                    @endif
-                    @if($aset->aset_jenis==2)
                     <div class="row" id="row11">
                         <div class="col" >
                             <div class="form-group ">
@@ -355,7 +372,6 @@
                             </div>
                         </div>
                     </div>
-                    @endif
                     <div class="row ">
                         <div class="col" id="hgu_col">
 
@@ -366,14 +382,12 @@
                             </div>
                         </div>
 
-                        @if($aset->aset_jenis==1)
                         <div class="col" id="aset_luas_tanaman_col">
                             <div class="form-group">
                                 <label for="aset_luas">Luas Areal (Ha)</label>
                                 <input class="form-control" id="aset_luas" name="aset_luas" value="{{$aset->aset_luas}}">
                             </div>
                         </div>
-                        @else
                         <div class="col" id="aset_luas_nontan_col">
 
                             <div class="form-group">
@@ -390,10 +404,8 @@
                             </div>
                         </div>
 
-                        @endif
                     </div>
 
-                    @if($aset->aset_jenis == 1)
                     <div class="row mt-3" id="row12">
                         <div class="col" >
 
@@ -414,8 +426,8 @@
 
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col" id="row13">
+                    <div class="row mt-3" id="row13">
+                        <div class="col">
 
                             <div class="form-group ">
                                 <label for="pop_hektar_ini">Populasi Hektar Saat Ini</label>
@@ -433,7 +445,6 @@
                         </div>
 
                     </div>
-                    @endif
 
                     <div class="row mt-3" id="row14">
                         <div class="col">
@@ -543,14 +554,53 @@
             $("#aset_kode_tanaman").removeClass("hidden")
             $("#aset_kode_nontan").addClass("hidden")
             $("#aset_kode_kayu").addClass("hidden")
+
+            // sistem tanam
+            $("#sistem_tanam_row").removeClass("hidden")
+            $("#row7").removeClass("hidden")
+            $("#foto_aset5_col").removeClass("hidden")
+            $("#aset_luas_nontan_col").removeClass("hidden")
+
+            $("#row8").addClass("hidden")
+            $("#aset_luas_tanaman_col").addClass("hidden")
+            $("#row12").addClass("hidden")
+            $("#row13").addClass("hidden")
     } else if ($("#aset_jenis").val() == 2){
         $("#aset_kode_tanaman").addClass("hidden")
         $("#aset_kode_nontan").removeClass("hidden")
         $("#aset_kode_kayu").addClass("hidden")
+
+         // sistem tanam
+        $("#sistem_tanam_row").addClass("hidden")
+        $("#foto_aset5_col").addClass("hidden")
+        $("#aset_luas_nontan_col").addClass("hidden")
+        $("#row9").addClass("hidden")
+
+        $("#aset_luas_tanaman_col").removeClass("hidden")
+        $("#row12").addClass("hidden")
+        $("#row13").addClass("hidden")
     } else {
         $("#aset_kode_tanaman").addClass("hidden")
         $("#aset_kode_nontan").addClass("hidden")
         $("#aset_kode_kayu").removeClass("hidden")
+
+         // sistem tanam
+        $("#sistem_tanam_row").removeClass("hidden")
+        $("#row7").removeClass("hidden")
+        $("#foto_aset5_col").removeClass("hidden")
+        $("#aset_luas_nontan_col").removeClass("hidden")
+
+        $("#row8").addClass("hidden")
+        $("#aset_luas_tanaman_col").addClass("hidden")
+        $("#row12").addClass("hidden")
+        $("#row13").addClass("hidden")
+    }
+
+    if ($("#aset_kondisi").val() != 1) {
+            $("#row6").addClass("hidden")
+    } else {
+        $("#row6").removeClass("hidden")
+
     }
 
     $("#aset_tipe").change(function (e) {
@@ -564,19 +614,59 @@
 
     $("#aset_jenis").change(function (e) {
         if (e.target.value == 1) {
+            // aset kode
             $("#aset_kode_tanaman").removeClass("hidden")
             $("#aset_kode_kayu").addClass("hidden")
             $("#aset_kode_nontan").addClass("hidden")
             $("#aset_kode_nontan").addClass("hidden")
+
+
+            // sistem tanam
+            $("#sistem_tanam_row").removeClass("hidden")
+            $("#row7").removeClass("hidden")
+            $("#row9").removeClass("hidden")
+            $("#foto_aset5_col").removeClass("hidden")
+            $("#aset_luas_nontan_col").removeClass("hidden")
+            $("#row12").removeClass("hidden")
+            $("#row13").removeClass("hidden")
+
+            $("#row10").addClass("hidden")
+            $("#row11").addClass("hidden")
+            $("#aset_luas_nontan_col").addClass("hidden")
+
+
         } else if (e.target.value == 2){
-            $("#aset_kode_tanaman").addClass("hidden")
+             $("#aset_kode_tanaman").addClass("hidden")
             $("#aset_kode_nontan").removeClass("hidden")
             $("#aset_kode_kayu").addClass("hidden")
+
+            // sistem tanam
+            $("#sistem_tanam_row").addClass("hidden")
+            $("#foto_aset5_col").addClass("hidden")
+            $("#aset_luas_nontan_col").addClass("hidden")
+            $("#row9").addClass("hidden")
+
+            $("#aset_luas_tanaman_col").removeClass("hidden")
+            $("#row12").addClass("hidden")
+            $("#row13").addClass("hidden")
         } else {
-            $("#aset_kode_tanaman").addClass("hidden")
+            $("#aset_kode_tanaman").removeClass("hidden")
+            $("#aset_kode_kayu").addClass("hidden")
             $("#aset_kode_nontan").addClass("hidden")
             $("#aset_kode_nontan").addClass("hidden")
-            $("#aset_kode_kayu").removeClass("hidden")
+
+
+            // sistem tanam
+            $("#sistem_tanam_row").removeClass("hidden")
+            $("#row7").removeClass("hidden")
+            $("#row9").removeClass("hidden")
+            $("#foto_aset5_col").removeClass("hidden")
+            $("#aset_luas_nontan_col").removeClass("hidden")
+            $("#row12").removeClass("hidden")
+            $("#row13").removeClass("hidden")
+
+            $("#row10").addClass("hidden")
+            $("#aset_luas_nontan_col").addClass("hidden")
         }
     })
 
