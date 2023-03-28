@@ -127,7 +127,7 @@
                                     @endif
                                     @endforeach
                                 </select>
-                                <select class="form-control" id="aset_kode_nonton" name="aset_kode">
+                                <select class="form-control" id="aset_kode_nontan" name="aset_kode">
                                     @foreach($all_kode_nontan as $aset_kode)
                                     <?php
                                     $aset_kode_temp = "";
@@ -534,10 +534,24 @@
 
     if ($("#aset_tipe").val() == 1) {
             $("#row15").removeClass("hidden")
-        } else {
-            $("#row15").addClass("hidden")
+    } else {
+        $("#row15").addClass("hidden")
 
-        }
+    }
+
+    if ($("#aset_jenis").val() == 1) {
+            $("#aset_kode_tanaman").removeClass("hidden")
+            $("#aset_kode_nontan").addClass("hidden")
+            $("#aset_kode_kayu").addClass("hidden")
+    } else if ($("#aset_jenis").val() == 2){
+        $("#aset_kode_tanaman").addClass("hidden")
+        $("#aset_kode_nontan").removeClass("hidden")
+        $("#aset_kode_kayu").addClass("hidden")
+    } else {
+        $("#aset_kode_tanaman").addClass("hidden")
+        $("#aset_kode_nontan").addClass("hidden")
+        $("#aset_kode_kayu").removeClass("hidden")
+    }
 
     $("#aset_tipe").change(function (e) {
         if (e.target.value == 1) {
@@ -545,6 +559,24 @@
         } else {
 
             $("#row15").addClass("hidden")
+        }
+    })
+
+    $("#aset_jenis").change(function (e) {
+        if (e.target.value == 1) {
+            $("#aset_kode_tanaman").removeClass("hidden")
+            $("#aset_kode_kayu").addClass("hidden")
+            $("#aset_kode_nontan").addClass("hidden")
+            $("#aset_kode_nontan").addClass("hidden")
+        } else if (e.target.value == 2){
+            $("#aset_kode_tanaman").addClass("hidden")
+            $("#aset_kode_nontan").removeClass("hidden")
+            $("#aset_kode_kayu").addClass("hidden")
+        } else {
+            $("#aset_kode_tanaman").addClass("hidden")
+            $("#aset_kode_nontan").addClass("hidden")
+            $("#aset_kode_nontan").addClass("hidden")
+            $("#aset_kode_kayu").removeClass("hidden")
         }
     })
 
