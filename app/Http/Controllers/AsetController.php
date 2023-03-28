@@ -226,7 +226,6 @@ class AsetController extends Controller
         $aset->umur_ekonomis = Aset::toUmurEkonomis($umur_ekonomis_in_month);
         $aset->nilai_oleh = Aset::toRupiah($aset->nilai_oleh);
         $aset->nilai_residu = Aset::toRupiah($aset->nilai_residu);
-// dd($all_sistem_tanam);
         return view("page.aset.edit",compact(["aset","title","nama","jabatan",'all_sistem_tanam','all_kode_tanaman','all_kode_nontan','all_kode_kayu','all_tipe','all_jenis','all_kode','all_sap','all_kondisi']));
     }
     public function detail($id){

@@ -100,14 +100,14 @@
                         <div class="col">
 
                             <div class="form-group">
-                                <label for="aset_kode">Kode Aset</label>
-                                <select class="form-control" id="aset_kode" name="aset_kode">
-                                    @foreach($all_kode as $aset_kode)
+                                <label for="aset_kode_tanaman">Kode Aset</label>
+                                <select class="form-control" id="aset_kode_tanaman" name="aset_kode">
+                                    @foreach($all_kode_tanaman as $aset_kode)
                                     <?php
                                     $aset_kode_temp = "";
-                                    if ($aset_kode->aset_jenis == 1) {
+                                    if ($aset_kode->aset_jenis == 2) {
                                         $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_desc;
-                                    } else if ($aset_kode->aset_jenis == 2) {
+                                    } else if ($aset_kode->aset_jenis == 1) {
                                         $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
                                     } else {
                                         $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
@@ -117,7 +117,6 @@
 
                                     ?>
 
-                                    @if($aset->aset_jenis == $aset_kode->aset_jenis)
                                     @if( $aset->aset_kode == $aset_kode->aset_kode_id )
                                     <option value="{{$aset_kode->aset_kode_id}}" selected>
 
@@ -126,6 +125,57 @@
                                     @else
                                     <option value="{{$aset_kode->aset_kode_id}}">{{$aset_kode_temp}}</option>
                                     @endif
+                                    @endforeach
+                                </select>
+                                <select class="form-control" id="aset_kode_nonton" name="aset_kode">
+                                    @foreach($all_kode_nontan as $aset_kode)
+                                    <?php
+                                    $aset_kode_temp = "";
+                                    if ($aset_kode->aset_jenis == 2) {
+                                        $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_desc;
+                                    } else if ($aset_kode->aset_jenis == 1) {
+                                        $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+                                    } else {
+                                        $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+                                    }
+
+                                    $aset->aset_kode = $aset_kode_temp;
+
+                                    ?>
+
+                                    @if( $aset->aset_kode == $aset_kode->aset_kode_id )
+                                    <option value="{{$aset_kode->aset_kode_id}}" selected>
+
+                                        {{$aset_kode_temp}}
+                                    </option>
+                                    @else
+                                    <option value="{{$aset_kode->aset_kode_id}}">{{$aset_kode_temp}}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                                <select class="form-control" id="aset_kode_kayu" name="aset_kode">
+                                    @foreach($all_kode_kayu as $aset_kode)
+                                    <?php
+                                    $aset_kode_temp = "";
+                                    if ($aset_kode->aset_jenis == 2) {
+                                        $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_desc;
+                                    } else if ($aset_kode->aset_jenis == 1) {
+                                        $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+                                    } else {
+                                        $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
+                                    }
+
+                                    $aset->aset_kode = $aset_kode_temp;
+
+                                    ?>
+
+                                    @if( $aset->aset_kode == $aset_kode->aset_kode_id )
+                                    <option value="{{$aset_kode->aset_kode_id}}" selected>
+
+                                        {{$aset_kode_temp}}
+                                    </option>
+                                    @else
+                                    <option value="{{$aset_kode->aset_kode_id}}">{{$aset_kode_temp}}</option>
                                     @endif
                                     @endforeach
                                 </select>
