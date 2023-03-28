@@ -596,8 +596,8 @@
         $("#row13").addClass("hidden")
     }
 
-    if ($("#aset_kondisi").val() != 1) {
-            $("#row6").addClass("hidden")
+    if ($("#aset_kondisi").val() == 1) {
+        $("#row6").addClass("hidden")
     } else {
         $("#row6").removeClass("hidden")
 
@@ -669,7 +669,15 @@
             $("#aset_luas_nontan_col").addClass("hidden")
         }
     })
+    $("#aset_kondisi").change(function (e) {
+        if (e.target.value == 1) {
+            $("#row6").addClass("hidden")
 
+        } else {
+            $("#row6").removeClass("hidden")
+
+        }
+    })
 
 </script>
 <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
