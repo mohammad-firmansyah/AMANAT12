@@ -15,7 +15,7 @@
 <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 <style>
     .hidden {
-        display: none;
+        display: none !important;
     }
 </style>
 <!-- third party css end -->
@@ -528,18 +528,25 @@
 
 @section('pluginJS')
 <!-- third party js -->
+<script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
 <script>
-    function readURL(input, i) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+    // kondisi awal checking
 
-            reader.onload = function(e) {
-                $('#foto_aset' + i).attr('src', e.target.result);
-            }
+    if ($("#aset_tipe").val() == 1) {
+            $("#row15").removeClass("hidden")
+        } else {
+            $("#row15").addClass("hidden")
 
-            reader.readAsDataURL(input.files[0]);
         }
-    }
+
+    $("#aset_tipe").change(function (e) {
+        if (e.target.value == 1) {
+            $("#row15").addClass("hidden")
+        } else {
+            $("#row15").removeClass("hidden")
+
+        }
+    })
 </script>
 <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
