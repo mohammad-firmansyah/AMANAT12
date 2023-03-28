@@ -541,12 +541,14 @@
 
     $("#aset_tipe").change(function (e) {
         if (e.target.value == 1) {
-            $("#row15").addClass("hidden")
-        } else {
             $("#row15").removeClass("hidden")
+        } else {
 
+            $("#row15").addClass("hidden")
         }
     })
+
+
 </script>
 <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
