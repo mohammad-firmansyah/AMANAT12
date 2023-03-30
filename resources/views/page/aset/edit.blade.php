@@ -3,6 +3,8 @@
 @section('nama', $nama ?? '')
 @section('jabatan', $jabatan ?? '')
 
+
+
 @section('pluginCSS')
 <!-- third party css -->
 <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -37,7 +39,7 @@
 
                 <form action="{{url('aset/'.$aset->aset_id)}}" method="post" enctype="multipart/form-data">
 
-
+                @csrf
                     <div class="row" id="row1">
                         <div class="col">
 
@@ -111,11 +113,10 @@
                                         $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
                                     }
 
-                                    $aset->aset_kode = $aset_kode_temp;
 
                                     ?>
 
-                                    @if( $aset->aset_kode == $aset_kode->aset_kode_id )
+                                    @if($aset->aset_kode == $aset_kode->aset_kode_id )
                                     <option value="{{$aset_kode->aset_kode_id}}" selected>
 
                                         {{$aset_kode_temp}}
@@ -137,14 +138,13 @@
                                         $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
                                     }
 
-                                    $aset->aset_kode = $aset_kode_temp;
-
                                     ?>
 
                                     @if( $aset->aset_kode == $aset_kode->aset_kode_id )
                                     <option value="{{$aset_kode->aset_kode_id}}" selected>
 
                                         {{$aset_kode_temp}}
+
                                     </option>
                                     @else
                                     <option value="{{$aset_kode->aset_kode_id}}">{{$aset_kode_temp}}</option>
@@ -163,7 +163,7 @@
                                         $aset_kode_temp = $aset_kode->aset_class . "/" . $aset_kode->aset_group . "/" . $aset_kode->aset_desc;
                                     }
 
-                                    $aset->aset_kode = $aset_kode_temp;
+
 
                                     ?>
 
@@ -181,11 +181,23 @@
                         </div>
                     </div>
 
-                      <div class="row" id="sistem_tanam_row">
+  <div class="row" id="alat_angkut_row">
+
                         <div class="col">
+                            <label for="alat_angkut">Alat Pengangkutan</label>
+                            <select name="alat_angkut" id="alat_angkut" class="form-control">
+                                @foreach($all_alat_angkut as $alat_angkut)
+                                <option value="{{$alat_angkut->ap_id}}">{{ $alat_angkut->ap_desc}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="row" id="sistem_tanam_row">
+                        <div class="col" id="sistem_tanam_col">
 
                             <div class="form-group">
-                                <label for="aset_tipe">Sistem Tanam</label>
+                                <label for="sistem_tanam">Sistem Tanam</label>
                                 <select class="form-control" id="sistem_tanam" name="sistem_tanam">
                                 @foreach($all_sistem_tanam as $sistem_tanam)
                                     @if( $aset->sistem_tanam == $sistem_tanam->st_id )
@@ -480,13 +492,13 @@
                             <br>
                             <label for="file_bast">
                             <a class="btn btn-warning">
-                                <strong class="text-white">Upload</strong>
+                                <strong class="text-white" id="upload_bast">Upload</strong>
                             </a>
                             </label>
                             <input type="file" class="hidden" id="file_bast" name="file_bast" value="{{$aset->file_bast}}">
 
                             <a class="btn btn-success">
-                                <strong class="text-white">Download</strong>
+                                <strong class="text-white" id="download_bast">Download</strong>
                             </a>
 
 
@@ -550,6 +562,13 @@
 
     }
 
+    if ($("#aset_kode_nontan").val() == 8) {
+            $("#alat_angkut_row").removeClass("hidden")
+    } else {
+        $("#alat_angkut_row").addClass("hidden")
+
+    }
+
     if ($("#aset_jenis").val() == 1) {
             $("#aset_kode_tanaman").removeClass("hidden")
             $("#aset_kode_nontan").addClass("hidden")
@@ -581,8 +600,8 @@
         $("#row13").addClass("hidden")
     } else {
         $("#aset_kode_tanaman").addClass("hidden")
-        $("#aset_kode_nontan").addClass("hidden")
         $("#aset_kode_kayu").removeClass("hidden")
+        $("#aset_kode_nontan").addClass("hidden")
 
          // sistem tanam
         $("#sistem_tanam_row").removeClass("hidden")
@@ -650,8 +669,8 @@
             $("#row12").addClass("hidden")
             $("#row13").addClass("hidden")
         } else {
-            $("#aset_kode_tanaman").removeClass("hidden")
-            $("#aset_kode_kayu").addClass("hidden")
+            $("#aset_kode_tanaman").addClass("hidden")
+            $("#aset_kode_kayu").removeClass("hidden")
             $("#aset_kode_nontan").addClass("hidden")
             $("#aset_kode_nontan").addClass("hidden")
 
@@ -678,6 +697,60 @@
 
         }
     })
+
+    $("#aset_kode_nontan").change(function (e) {
+        if (e.target.value == 8) {
+            $("#alat_angkut_row").removeClass("hidden")
+        } else {
+            $("#alat_angkut_row").addClass("hidden")
+        }
+    })
+
+    $("#aset_kode_tanaman").change(function (e) {
+        if (e.target.value == 22) {
+            $("#row12").addClass("hidden")
+            $("#row13").addClass("hidden")
+            $("#sistem_tanam_col").addClass("hidden")
+        } else {
+            $("#row12").removeClass("hidden")
+            $("#row13").removeClass("hidden")
+            $("#sistem_tanam_col").removeClass("hidden")
+
+        }
+    })
+
+
+    // sistem tanam
+
+    // tebu
+    console.log($("#aset_kode_tanaman").val());
+
+
+    $("#sistem_tanam").change(function (e) {
+        if(e.target.value == 1){
+            if ($("#aset_kode").val() != 22) {
+                $("#row12").removeClass("hidden")
+                $("#row13").removeClass("hidden")
+            } else {
+                $("#row12").addClass("hidden")
+                $("#row13").addClass("hidden")
+            }
+        }
+
+        else if (e.target.value == 2) {
+            $("#row12").addClass("hidden")
+            $("#row13").addClass("hidden")
+        } else {
+            $("#row12").addClass("hidden")
+            $("#row13").addClass("hidden")
+        }
+    })
+
+    $("#sistem_tanam").change(function (e) {
+
+    })
+
+    // bast
 
 </script>
 <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>

@@ -173,6 +173,7 @@ class AsetController extends Controller
         $all_sap = DB::table("sap")->get();
         $all_kondisi = DB::table("aset_kondisi")->get();
         $all_sistem_tanam = DB::table("sistem_tanam")->get();
+        $all_alat_angkut = DB::table("alat_pengangkutan")->get();
 
         $all_kode_tanaman = array();
         $all_kode_nontan = array();
@@ -226,7 +227,11 @@ class AsetController extends Controller
         $aset->umur_ekonomis = Aset::toUmurEkonomis($umur_ekonomis_in_month);
         $aset->nilai_oleh = Aset::toRupiah($aset->nilai_oleh);
         $aset->nilai_residu = Aset::toRupiah($aset->nilai_residu);
-        return view("page.aset.edit",compact(["aset","title","nama","jabatan",'all_sistem_tanam','all_kode_tanaman','all_kode_nontan','all_kode_kayu','all_tipe','all_jenis','all_kode','all_sap','all_kondisi']));
+        return view("page.aset.edit",compact(["aset","title","nama","jabatan",'all_sistem_tanam','all_alat_angkut','all_kode_tanaman','all_kode_nontan','all_kode_kayu','all_tipe','all_jenis','all_kode','all_sap','all_kondisi']));
+    }
+
+    public function update(Request $req, $id) {
+dd($req);
     }
     public function detail($id){
 
