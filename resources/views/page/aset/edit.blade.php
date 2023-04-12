@@ -13,10 +13,25 @@
 <link href="{{ asset('assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <style>
     .hidden {
         display: none !important;
     }
+
+
+
+    .selected-card{
+        border:2px solid #02c0ce !important;
+        background:#ccebed !important;
+    }
+
+
+    #search-sap{
+        max-height:400px;
+        overflow: auto;
+    }
+
 </style>
 <!-- third party css end -->
 @endsection
@@ -260,14 +275,17 @@
                         <div class="col">
 
                             <div class="form-group">
-
                                 <label for="nomor_sap">Nomor SAP</label>
-                                <select class="form-control" id="nomor_sap" name="nomor_sap">
-                                    @foreach($all_sap as $sap)
-                                    <option value="{{$sap->sap_id}}>">{{$sap->sap_desc}}</option>
-                                    @endforeach
-                                </select>
+                                <input name="nomor_sap" type="text" class="form-control" id="nomor_sap" placeholder="Nomor SAP" value="{{$aset->nomor_sap}}" disabled>
                             </div>
+                        </div>
+
+                        <div class="col">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
+                                Pilih Nomor SAP
+                            </button>
+                        </div>
                         </div>
                     </div>
                     <div class="row" id="row5">
@@ -491,7 +509,7 @@
                             <label>File BAST</label>
                             <br>
                             <label for="file_bast">
-                            <a class="btn btn-warning">
+                            <a class="btn btn-warning" id="file_bast_btn">
                                 <strong class="text-white" id="upload_bast">Upload</strong>
                             </a>
                             </label>
@@ -546,212 +564,102 @@
 </div> <!-- end row -->
 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pilih Nomor SAP</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" placeholder="cari nomor sap" id="input-sap">
+        <div id="search-sap">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="submit-sap" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 
 @section('pluginJS')
 <!-- third party js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="{{asset('assets/js/logic.js')}}"></script>
 <script>
-    // kondisi awal checking
 
-    if ($("#aset_tipe").val() == 1) {
-            $("#row15").removeClass("hidden")
-    } else {
-        $("#row15").addClass("hidden")
+let data;
 
+fetch("http://localhost:8000/api/sap",{
+    method:'GET',
+    headers:{
+        'Accept':'application/json',
+    },
+})
+.then(response => response.json())
+.then((response) => {
+    // myImage.src = URL.createObjectURL(response);
+    data = response
+    console.log(data);
+
+});
+
+
+
+$("#input-sap").keypress(function (e) {
+
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+        $('#search-sap').html('')
+    const result = data.filter(function (e) {
+        if (e.unit_id == {{$unit_id}}) {
+            return e
+        }
+    })
+
+    for (let index = 0; index < result.length; index++) {
+        if (result[index].sap_desc.includes(e.target.value)){
+            const card ="<div class=\'p-2 mt-2 border d-flex justify-content-between align-items-center\'><span class=\'font-weight-bold\'>"+result[index].sap_desc+"</span><button data='"+result[index].sap_desc+"' class=\'btn btn-primary select-sap\' id='sap-"+(index+1)+"' onclick='selectSAP(this.id)'>Pilih</button></div>"
+            $('#search-sap').append(card)
+        }
     }
 
-    if ($("#aset_kode_nontan").val() == 8) {
-            $("#alat_angkut_row").removeClass("hidden")
-    } else {
-        $("#alat_angkut_row").addClass("hidden")
+}
+})
 
-    }
+let sap;
+function selectSAP(e) {
+    $("#"+e).parent().removeClass("border")
 
-    if ($("#aset_jenis").val() == 1) {
-            $("#aset_kode_tanaman").removeClass("hidden")
-            $("#aset_kode_nontan").addClass("hidden")
-            $("#aset_kode_kayu").addClass("hidden")
+    let selectedCards = document.querySelectorAll(".selected-card")
+    selectedCards.forEach(selectedCard => {
+        selectedCard.classList.remove("selected-card")
+    });
 
-            // sistem tanam
-            $("#sistem_tanam_row").removeClass("hidden")
-            $("#row7").removeClass("hidden")
-            $("#foto_aset5_col").removeClass("hidden")
-            $("#aset_luas_nontan_col").removeClass("hidden")
-
-            $("#row8").addClass("hidden")
-            $("#aset_luas_tanaman_col").addClass("hidden")
-            $("#row12").addClass("hidden")
-            $("#row13").addClass("hidden")
-    } else if ($("#aset_jenis").val() == 2){
-        $("#aset_kode_tanaman").addClass("hidden")
-        $("#aset_kode_nontan").removeClass("hidden")
-        $("#aset_kode_kayu").addClass("hidden")
-
-         // sistem tanam
-        $("#sistem_tanam_row").addClass("hidden")
-        $("#foto_aset5_col").addClass("hidden")
-        $("#aset_luas_nontan_col").addClass("hidden")
-        $("#row9").addClass("hidden")
-
-        $("#aset_luas_tanaman_col").removeClass("hidden")
-        $("#row12").addClass("hidden")
-        $("#row13").addClass("hidden")
-    } else {
-        $("#aset_kode_tanaman").addClass("hidden")
-        $("#aset_kode_kayu").removeClass("hidden")
-        $("#aset_kode_nontan").addClass("hidden")
-
-         // sistem tanam
-        $("#sistem_tanam_row").removeClass("hidden")
-        $("#row7").removeClass("hidden")
-        $("#foto_aset5_col").removeClass("hidden")
-        $("#aset_luas_nontan_col").removeClass("hidden")
-
-        $("#row8").addClass("hidden")
-        $("#aset_luas_tanaman_col").addClass("hidden")
-        $("#row12").addClass("hidden")
-        $("#row13").addClass("hidden")
-    }
-
-    if ($("#aset_kondisi").val() == 1) {
-        $("#row6").addClass("hidden")
-    } else {
-        $("#row6").removeClass("hidden")
-
-    }
-
-    $("#aset_tipe").change(function (e) {
-        if (e.target.value == 1) {
-            $("#row15").removeClass("hidden")
-        } else {
-
-            $("#row15").addClass("hidden")
-        }
-    })
-
-    $("#aset_jenis").change(function (e) {
-        if (e.target.value == 1) {
-            // aset kode
-            $("#aset_kode_tanaman").removeClass("hidden")
-            $("#aset_kode_kayu").addClass("hidden")
-            $("#aset_kode_nontan").addClass("hidden")
-            $("#aset_kode_nontan").addClass("hidden")
+    $("#"+e).parent().addClass("selected-card")
 
 
-            // sistem tanam
-            $("#sistem_tanam_row").removeClass("hidden")
-            $("#row7").removeClass("hidden")
-            $("#row9").removeClass("hidden")
-            $("#foto_aset5_col").removeClass("hidden")
-            $("#aset_luas_nontan_col").removeClass("hidden")
-            $("#row12").removeClass("hidden")
-            $("#row13").removeClass("hidden")
+    sap = $("#"+e).attr("data")
+    console.log($("#"+e).attr("data"));
 
-            $("#row10").addClass("hidden")
-            $("#row11").addClass("hidden")
-            $("#aset_luas_nontan_col").addClass("hidden")
+}
 
 
-        } else if (e.target.value == 2){
-             $("#aset_kode_tanaman").addClass("hidden")
-            $("#aset_kode_nontan").removeClass("hidden")
-            $("#aset_kode_kayu").addClass("hidden")
-
-            // sistem tanam
-            $("#sistem_tanam_row").addClass("hidden")
-            $("#foto_aset5_col").addClass("hidden")
-            $("#aset_luas_nontan_col").addClass("hidden")
-            $("#row9").addClass("hidden")
-
-            $("#aset_luas_tanaman_col").removeClass("hidden")
-            $("#row12").addClass("hidden")
-            $("#row13").addClass("hidden")
-        } else {
-            $("#aset_kode_tanaman").addClass("hidden")
-            $("#aset_kode_kayu").removeClass("hidden")
-            $("#aset_kode_nontan").addClass("hidden")
-            $("#aset_kode_nontan").addClass("hidden")
-
-
-            // sistem tanam
-            $("#sistem_tanam_row").removeClass("hidden")
-            $("#row7").removeClass("hidden")
-            $("#row9").removeClass("hidden")
-            $("#foto_aset5_col").removeClass("hidden")
-            $("#aset_luas_nontan_col").removeClass("hidden")
-            $("#row12").removeClass("hidden")
-            $("#row13").removeClass("hidden")
-
-            $("#row10").addClass("hidden")
-            $("#aset_luas_nontan_col").addClass("hidden")
-        }
-    })
-    $("#aset_kondisi").change(function (e) {
-        if (e.target.value == 1) {
-            $("#row6").addClass("hidden")
-
-        } else {
-            $("#row6").removeClass("hidden")
-
-        }
-    })
-
-    $("#aset_kode_nontan").change(function (e) {
-        if (e.target.value == 8) {
-            $("#alat_angkut_row").removeClass("hidden")
-        } else {
-            $("#alat_angkut_row").addClass("hidden")
-        }
-    })
-
-    $("#aset_kode_tanaman").change(function (e) {
-        if (e.target.value == 22) {
-            $("#row12").addClass("hidden")
-            $("#row13").addClass("hidden")
-            $("#sistem_tanam_col").addClass("hidden")
-        } else {
-            $("#row12").removeClass("hidden")
-            $("#row13").removeClass("hidden")
-            $("#sistem_tanam_col").removeClass("hidden")
-
-        }
-    })
-
-
-    // sistem tanam
-
-    // tebu
-    console.log($("#aset_kode_tanaman").val());
-
-
-    $("#sistem_tanam").change(function (e) {
-        if(e.target.value == 1){
-            if ($("#aset_kode").val() != 22) {
-                $("#row12").removeClass("hidden")
-                $("#row13").removeClass("hidden")
-            } else {
-                $("#row12").addClass("hidden")
-                $("#row13").addClass("hidden")
-            }
-        }
-
-        else if (e.target.value == 2) {
-            $("#row12").addClass("hidden")
-            $("#row13").addClass("hidden")
-        } else {
-            $("#row12").addClass("hidden")
-            $("#row13").addClass("hidden")
-        }
-    })
-
-    $("#sistem_tanam").change(function (e) {
-
-    })
-
-    // bast
-
+$("#submit-sap").click(function (e) {
+    $("#nomor_sap").val(sap)
+})
 </script>
 <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>

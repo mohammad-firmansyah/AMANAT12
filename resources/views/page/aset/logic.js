@@ -1,7 +1,0 @@
-function editVisibilityDynamic(){
-    // tipe aset
-
-    
-
-
-}
