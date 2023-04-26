@@ -230,7 +230,7 @@
 
                             <div class="form-group">
                                 <label for="aset_jenis">Tahun Tanam</label>
-                                <input name="tahun_tanam" type="text" class="form-control" id="tahun_tanam" placeholder="tahun tanam" value="{{$aset->tahun_tanam}}">
+                                <input name="tahun_tanam"  type="text" class="form-control" id="tahun_tanam" placeholder="tahun tanam" value="{{$aset->tahun_tanam}}">
                             </div>
                         </div>
                     </div>
@@ -425,11 +425,16 @@
                                 <input class="form-control" id="aset_luas" name="aset_luas" value="{{$aset->aset_luas}}">
                             </div>
 
+
+                        </div>
+
+                        <div class="col" id="satuan-luas">
                             <div class="form-group">
+                                <label for="aset_luas">Satuan Luas</label>
                                 <select class="form-control" id="satuan_luas" name="satuan_luas">
-                                    <option value="">Ha</option>
-                                    <option>m2</option>
-                                    <option>Item</option>
+                                    <option value="ha" selected>Ha</option>
+                                    <option value="m2">m2</option>
+                                    <option value="item">Item</option>
                                 </select>
                             </div>
                         </div>
@@ -440,16 +445,16 @@
                         <div class="col" >
 
                             <div class="form-group ">
-                                <label for="pop_total_ini">Populasi Total Saat Ini</label>
-                                <input type="text" class="form-control" id="pop_total_ini" name="pop_pohon_saat_ini" value="{{$aset->pop_pohon_saat_ini}}">
+                                <label for="pop_pohon_saat_ini">Populasi Pohon Saat Ini</label>
+                                <input type="text" class="form-control" id="pop_pohon_saat_ini" name="pop_pohon_saat_ini" value="{{$aset->pop_pohon_saat_ini}}">
 
                             </div>
                         </div>
                         <div class="col">
 
                             <div class="form-group ">
-                                <label for="pop_total_std">Populasi Total Standar</label>
-                                <input type="text" class="form-control" id="pop_total_std" name="pop_standar" value="{{$aset->pop_standar}}">
+                                <label for="pop_std">Populasi Standar</label>
+                                <input type="text" class="form-control" id="pop_std" name="pop_std" value="{{$aset->pop_standar}}">
 
                             </div>
                         </div>
@@ -460,16 +465,16 @@
                         <div class="col">
 
                             <div class="form-group ">
-                                <label for="pop_hektar_ini">Populasi Hektar Saat Ini</label>
-                                <input type="text" class="form-control" id="pop_hektar_ini" name="pop_per_ha" value="{{$aset->pop_per_ha}}" disabled>
+                                <label for="pop_per_ha">Populasi per Hektar</label>
+                                <input type="text" class="form-control" id="pop_per_ha" name="pop_per_ha" value="{{$aset->pop_per_ha}}" disabled>
 
                             </div>
                         </div>
                         <div class="col">
 
                             <div class="form-group ">
-                                <label for="pop_hektar_std">Populasi Hektar Standar</label>
-                                <input type="text" class="form-control" id="pop_hektar_std" name="presentase_pop_per_ha" disabled value="{{$aset->presentase_pop_per_ha}}">
+                                <label for="presentase_pop_per_ha">Presentase Populasi Per HA</label>
+                                <input type="text" class="form-control" id="presentase_pop_per_ha" name="presentase_pop_per_ha" disabled value="{{$aset->presentase_pop_per_ha}}">
 
                             </div>
                         </div>
@@ -481,7 +486,7 @@
 
                             <div class="form-group ">
                                 <label for="nilai_oleh">Nilai Perolehan</label>
-                                <input type="text" class="form-control" id="nilai_oleh" name="nilai_oleh" value="{{$aset->nilai_oleh}}">
+                                <input type="text" disabled class="form-control" id="nilai_oleh" name="nilai_oleh" value="{{$aset->nilai_oleh}}">
 
                             </div>
                         </div>
@@ -490,7 +495,7 @@
 
 
                             <label for="tgl_oleh">Tanggal Perolehan</label>
-                            <input type="datetime-local" class="form-control" id="tgl_oleh" name="tgl_oleh" value="{{$aset->tgl_oleh}}">
+                            <input type="datetime-local" disabled class="form-control" id="tgl_oleh" name="tgl_oleh" value="{{$aset->tgl_oleh}}">
 
                         </div>
                     </div>
@@ -527,7 +532,7 @@
 
                             <div class="form-group ">
                                 <label for="masa_susut">Masa Penyusutan</label>
-                                <input type="text" class="form-control" id="masa_susut" name="masa_susut" value="{{$aset->masa_susut}} Tahun">
+                                <input type="text" disabled class="form-control" id="masa_susut" name="masa_susut" value="{{$aset->masa_susut}} Tahun">
 
                             </div>
                         </div>
@@ -536,7 +541,7 @@
 
 
                             <label for="nilai_residu">Nilai Residu</label>
-                            <input type="text" class="form-control" id="nilai_residu" name="nilai_residu" value="{{$aset->nilai_residu}}">
+                            <input type="text" class="form-control" disabled id="nilai_residu" name="nilai_residu" value="{{$aset->nilai_residu}}">
 
                         </div>
 
@@ -597,7 +602,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-<script src="{{asset('assets/js/logic.js')}}"></script>
+<script src="{{asset('assets/js/edit-visibility-dynamic.js')}}"></script>
+<script src="{{asset('assets/js/populasi.js')}}"></script>
 <script>
 
 let data;
@@ -660,6 +666,9 @@ function selectSAP(e) {
 $("#submit-sap").click(function (e) {
     $("#nomor_sap").val(sap)
 })
+
+
+
 </script>
 <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>

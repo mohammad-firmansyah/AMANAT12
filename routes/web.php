@@ -25,6 +25,9 @@ Route::get('logout', [UserController::class,'logout'])->middleware("validateToke
 Route::post('reset-password', [UserController::class,'resetPassword'])->middleware("validateToken");
 
 Route::get('aset', [AsetController::class,'index'])->middleware("validateToken");
+Route::get('aset/delete/{id}', [AsetController::class,'delete'])->middleware("validateToken");
+Route::post('aset/laporan/', [AsetController::class,'reportProcess'])->middleware("validateToken");
+Route::get('aset/laporan/', [AsetController::class,'report'])->middleware("validateToken");
 Route::get('aset/{id}', [AsetController::class,'detail'])->middleware("validateToken");
 Route::get('aset/edit/{id}', [AsetController::class,'edit'])->middleware("validateToken");
 Route::post('aset/{id}', [AsetController::class,'update'])->middleware("validateToken");

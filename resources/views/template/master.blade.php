@@ -143,133 +143,13 @@
                     <li class="menu-title mt-2">Master</li>
 
                     <li><a href="{{ url('aset') }}"><i class="mdi mdi-city"></i><span> Aset </span></a></li>
+                    <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> Laporan </span></a></li>
 
 
             </div>
             @endif
 
 
-            @if($jabatan == "MANAJER")
-            <div id="sidebar-menu">
-
-                <ul id="side-menu">
-
-                    <!-- Menu TMA Tebu -->
-                    <li class="menu-title">Navigation</li>
-
-                    <li><a href="{{ url('home') }}"><i class="mdi mdi-view-dashboard"></i><span> Home </span></a></li>
-
-                    <li class="menu-title mt-2">TMA Tebu</li>
-
-                    <li><a href="{{ url('tebu/datatebu') }}"><i class="mdi mdi-account-group"></i><span> data TMA Tebu </span></a></li>
-                    <li class="menu-title mt-2">Master</li>
-                    <li><a href="{{ url('master/harga/datatebu') }}"><i class="mdi mdi-cash-usd"></i><span> Master Tarif Tebang </span></a></li>
-                    <li class="menu-title mt-2">Manajer</li>
-                    <li><a href="{{ url('approve/datatebu') }}"><i class="mdi mdi-check-all"></i><span> Manajer To Do List </span></a></li>
-
-
-                    <!--- Menu QC --->
-
-                    <li class="menu-title mt-2">Quality Control Tebu</li>
-                    <li><a href="{{ url('tebu/qcloses') }}"><i class="mdi mdi-account-details"></i><span> QC Loses </span></a></li>
-                    <li><a href="{{ url('tebu/qcmbs') }}"><i class="mdi mdi-account-check"></i><span> QC MBS </span></a></li>
-
-                    <li class="menu-title mt-2">Dashboard</li>
-
-                    <li><a href="https://dashboard.ptpn12.com/action-login.php?3efb322dda34c1a7dbfb5da9742c3d06=d34b6c59ef0497d8ff246abd1049352e"><i class="mdi mdi-city"></i><span> Dashboard Produksi </span></a></li>
-
-                </ul>
-
-            </div>
-            @endif
-
-            @if($jabatan == "ADMIN KEBUN")
-            <div id="sidebar-menu">
-
-                <ul id="side-menu">
-
-                    <!-- Menu TMA Tebu -->
-                    <li class="menu-title">Navigation</li>
-
-                    <li><a href="{{ url('home') }}"><i class="mdi mdi-view-dashboard"></i><span> Home </span></a></li>
-
-                    <li class="menu-title mt-2">TMA Tebu</li>
-
-                    <li><a href="{{ url('tebu/datatebu') }}"><i class="mdi mdi-account-group"></i><span> data TMA Tebu </span></a></li>
-                    <li><a href="{{ url('tebu/adminedit/datatebu') }}"><i class="mdi mdi-account-edit"></i><span> Edit data TMA Tebu </span></a></li>
-                    <li><a href="{{ url('tebu/datarenteng') }}"><i class="mdi mdi-account-group"></i><span> Master Renteng </span></a></li>
-                    <li><a href="{{ url('tebu/datapta') }}"><i class="mdi mdi-account-group"></i><span> Master PTA </span></a></li>
-
-                    <li><a href="{{ url('tebu/laporpg') }}"><i class="mdi mdi-account-alert"></i><span> Laporan PG </span>
-                            @if (isset($countLaporan))
-                            <span class="laporan-count">{{ $countLaporan }}</span>
-                            @endif
-                        </a></li>
-
-                    <!--- Menu QC --->
-
-                    <li class="menu-title mt-2">Quality Control Tebu</li>
-                    <li><a href="{{ url('tebu/qcloses') }}"><i class="mdi mdi-account-details"></i><span> QC Loses </span></a></li>
-                    <li><a href="{{ url('tebu/qcmbs') }}"><i class="mdi mdi-account-check"></i><span> QC MBS </span></a></li>
-
-                    <li class="menu-title mt-2">Dashboard</li>
-
-                    <li><a href="https://dashboard.ptpn12.com/action-login.php?3efb322dda34c1a7dbfb5da9742c3d06=d34b6c59ef0497d8ff246abd1049352e"><i class="mdi mdi-city"></i><span> Dashboard Produksi </span></a></li>
-
-                </ul>
-
-            </div>
-            @endif
-            @if($jabatan == "KASI" || $jabatan == "TANAMAN")
-            <div id="sidebar-menu">
-
-                <ul id="side-menu">
-
-                    <!-- Menu TMA Tebu -->
-                    <li class="menu-title">Navigation</li>
-
-                    <li><a href="{{ url('home') }}"><i class="mdi mdi-view-dashboard"></i><span> Home </span></a></li>
-
-                    <li class="menu-title mt-2">TMA Tebu</li>
-
-                    <li><a href="{{ url('tebu/datatebu') }}"><i class="mdi mdi-account-group"></i><span> data TMA Tebu </span></a></li>
-
-                    <li class="menu-title mt-2">Quality Control Tebu</li>
-                    <li><a href="{{ url('tebu/qcloses') }}"><i class="mdi mdi-account-details"></i><span> QC Loses </span></a></li>
-                    <li><a href="{{ url('tebu/qcmbs') }}"><i class="mdi mdi-account-check"></i><span> QC MBS </span></a></li>
-
-                    <li class="menu-title mt-2">Dashboard</li>
-
-                    <li><a href="https://dashboard.ptpn12.com/action-login.php?3efb322dda34c1a7dbfb5da9742c3d06=d34b6c59ef0497d8ff246abd1049352e"><i class="mdi mdi-city"></i><span> Dashboard Produksi </span></a></li>
-
-                </ul>
-
-            </div>
-            @endif
-            @if($jabatan == "DAUM")
-            <div id="sidebar-menu">
-                <ul id="side-menu">
-
-                    <!-- Menu TMA Tebu -->
-                    <li class="menu-title">Navigation</li>
-
-                    <li><a href="{{ url('home') }}"><i class="mdi mdi-view-dashboard"></i><span> Home </span></a></li>
-
-                    <li class="menu-title mt-2">TMA Tebu</li>
-
-                    <li><a href="{{ url('tebu/datatebu') }}"><i class="mdi mdi-account-group"></i><span> data TMA Tebu </span></a></li>
-
-                    <li class="menu-title mt-2">DAUM</li>
-
-                    <li><a href="{{ url('tebu/daum/datatebu/') }}"><i class="mdi mdi-check-all"></i><span> Daum To Do List </span></a></li>
-
-                    <li class="menu-title mt-2">Dashboard</li>
-
-                    <li><a href="https://dashboard.ptpn12.com/action-login.php?3efb322dda34c1a7dbfb5da9742c3d06=d34b6c59ef0497d8ff246abd1049352e"><i class="mdi mdi-city"></i><span> Dashboard Produksi </span></a></li>
-
-                </ul>
-            </div>
-            @endif
             <!-- End Sidebar -->
 
             <div class="clearfix"></div>

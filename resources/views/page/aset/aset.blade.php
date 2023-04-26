@@ -10,7 +10,8 @@
 <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<!-- <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> -->
+<link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css " rel="stylesheet">
 <!-- third party css end -->
 @endsection
 
@@ -22,6 +23,17 @@
 @endsection
 
 @section('content')
+@if ($errors->any())
+<div class="alert alert-danger bg-danger text-white border-0" role="alert">
+    {!! $errors->first() !!}
+</div>
+@endif
+
+@if (Session::has('message'))
+<div class="alert alert-warning bg-warning text-white border-0" role="alert">
+    {!! Session::get('message') !!}
+</div>
+@endif
 
 <div class="row">
     <div class="col-12">
@@ -61,7 +73,7 @@
                                 <a href="{{url('aset/edit/'.$value->aset_id)}}" class="btn btn-warning mx-2">Edit</a>
                                 @endif
                                 @if($jabatan == "Operator" && $value->status_posisi_id == 1 )
-                                <a href="#" class="btn btn-danger ">Delete</a>@endif
+                                <a class="text-light btn btn-danger delete" id="{{$value->aset_id}}">Delete</a>@endif
                             </td>
                             <td>{{$value->status_posisi}}</td>
                             <td>{{$value->masa_susut}} Tahun</td>
@@ -121,8 +133,23 @@
 <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
-<script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+<!-- <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script> -->
+<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js "></script>
+<script>
 
+document.querySelectorAll(".delete").forEach(element => {
+    element.addEventListener("click",function(params) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Yakin Hapus Aset Ini ?',
+            text: 'Data aset akan terhapus selamanya!',
+            }).then(function() {
+                window.location = "/aset/delete/"+params.target.getAttribute("id");
+            });
+    })
+});
+
+</script>
 <!-- Buttons js -->
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
