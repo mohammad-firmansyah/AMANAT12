@@ -414,15 +414,15 @@
 
                         <div class="col" id="aset_luas_tanaman_col">
                             <div class="form-group">
-                                <label for="aset_luas">Luas Areal (Ha)</label>
-                                <input class="form-control" id="aset_luas" name="aset_luas" value="{{$aset->aset_luas}}">
+                                <label for="aset_luas_tanaman">Luas Areal (Ha)</label>
+                                <input class="form-control" id="aset_luas_tanaman" name="aset_luas" value="{{$aset->aset_luas}}">
                             </div>
                         </div>
                         <div class="col" id="aset_luas_nontan_col">
 
                             <div class="form-group">
-                                <label for="aset_luas">Kapasitas/Luas Bangunan</label>
-                                <input class="form-control" id="aset_luas" name="aset_luas" value="{{$aset->aset_luas}}">
+                                <label for="aset_luas_nontan">Kapasitas/Luas Bangunan</label>
+                                <input class="form-control" id="aset_luas_nontan" name="aset_luas" value="{{$aset->aset_luas}}">
                             </div>
 
 

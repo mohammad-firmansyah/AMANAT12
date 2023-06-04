@@ -139,13 +139,31 @@
                     <li class="menu-title">Navigation</li>
 
                     <li><a href="{{ url('dashboard') }}"><i class="mdi mdi-view-dashboard"></i><span> Home </span></a></li>
-
-                    <li class="menu-title mt-2">Master</li>
-
-                    <li><a href="{{ url('aset') }}"><i class="mdi mdi-city"></i><span> Aset </span></a></li>
+                    <li><a href="{{ url('aset') }}"><i class="mdi mdi-city"></i><span>Semua Aset </span></a></li>
                     <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> Laporan </span></a></li>
 
+            </div>
+            @endif
 
+            @if($jabatan == "Admin")
+            <div id="sidebar-menu">
+
+                <ul id="side-menu">
+
+                    <li class="menu-title">Navigation</li>
+
+                    <li><a href="{{ url('dashboard') }}"><i class="mdi mdi-view-dashboard"></i><span> Home </span></a></li>
+                    <li><a href="{{ url('aset') }}"><i class="mdi mdi-city"></i><span>Semua Aset </span></a></li>
+                    <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> Laporan </span></a></li>
+
+                    <li class="menu-title mt-2">Master</li>
+                    <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> Nomor Sap </span></a></li>
+                    <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> Kode Aset </span></a></li>
+                    <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> Unit </span></a></li>
+                    <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> Sub Unit </span></a></li>
+                    <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> Afdeling </span></a></li>
+                    <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> User </span></a></li>
+                    <li><a href="{{ url('aset/laporan') }}"><i class="mdi mdi-file"></i><span> Hak Akses  </span></a></li>
             </div>
             @endif
 

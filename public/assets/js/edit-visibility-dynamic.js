@@ -26,8 +26,6 @@
         $("#row10").addClass("hidden")
         $("#row11").addClass("hidden")
         $("#aset_luas_nontan_col").addClass("hidden")
-        $("#row12").addClass("hidden")
-        $("#row13").addClass("hidden")
         $("#satuan-luas").addClass("hidden")
 
     } else if ($("#aset_jenis").val() == 2){
@@ -35,15 +33,13 @@
         $("#aset_kode_tanaman").addClass("hidden")
         $("#aset_kode_nontan").removeClass("hidden")
         $("#aset_kode_kayu").addClass("hidden")
-
-        // sistem tanam
         $("#sistem_tanam_row").addClass("hidden")
         $("#foto_aset5_col").addClass("hidden")
         $("#aset_luas_nontan_col").removeClass("hidden")
         $("#row9").addClass("hidden")
         $("#row12").addClass("hidden")
+        console.log($("#row12").addClass("hidden"))
         $("#row13").addClass("hidden")
-
         $("#row11").removeClass("hidden")
         $("#row10").removeClass("hidden")
         $("#aset_luas_tanaman_col").addClass("hidden")
@@ -60,8 +56,6 @@
         $("#aset_luas_nontan_col").removeClass("hidden")
         $("#row8").addClass("hidden")
         $("#aset_luas_tanaman_col").addClass("hidden")
-        $("#row12").addClass("hidden")
-        $("#row13").addClass("hidden")
         $("#row10").addClass("hidden")
         $("#row11").addClass("hidden")
         $("#satuan-luas").removeClass("hidden")
@@ -183,13 +177,6 @@
             $("#sistem_tanam_col").removeClass("hidden")
         }
     })
-
-
-    // sistem tanam
-
-    // tebu
-    console.log($("#aset_kode_tanaman").val());
-
 
     $("#sistem_tanam").change(function (e) {
         if(e.target.value == 1){
