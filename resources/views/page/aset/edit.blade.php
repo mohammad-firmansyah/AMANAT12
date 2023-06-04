@@ -608,7 +608,7 @@
 
 let data;
 
-fetch("http://localhost:8000/api/sap",{
+fetch("{{  url('') }}/api/sap",{
     method:'GET',
     headers:{
         'Accept':'application/json',
