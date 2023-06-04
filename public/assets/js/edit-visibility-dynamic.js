@@ -1,5 +1,20 @@
    // kondisi awal checking
 
+   if($("#sistem_tanam").val() == 1){
+            if ($("#aset_kode").val() != 22) {
+                $("#row12").removeClass("hidden")
+                $("#row13").removeClass("hidden")
+            } else {
+                $("#row12").addClass("hidden")
+                $("#row13").addClass("hidden")
+            }
+    }
+
+    else {
+        $("#row12").addClass("hidden")
+        $("#row13").addClass("hidden")
+    }
+
     if ($("#aset_tipe").val() == 1) {
             $("#row15").removeClass("hidden")
     } else {
@@ -13,6 +28,8 @@
         $("#alat_angkut_row").addClass("hidden")
 
     }
+
+
 
     if ($("#aset_jenis").val() == 1) {
         $("#aset_kode_tanaman").removeClass("hidden")
@@ -28,8 +45,8 @@
         $("#aset_luas_nontan_col").addClass("hidden")
         $("#satuan-luas").addClass("hidden")
 
-    } else if ($("#aset_jenis").val() == 2){
 
+    } else if ($("#aset_jenis").val() == 2){
         $("#aset_kode_tanaman").addClass("hidden")
         $("#aset_kode_nontan").removeClass("hidden")
         $("#aset_kode_kayu").addClass("hidden")
@@ -38,7 +55,6 @@
         $("#aset_luas_nontan_col").removeClass("hidden")
         $("#row9").addClass("hidden")
         $("#row12").addClass("hidden")
-        console.log($("#row12").addClass("hidden"))
         $("#row13").addClass("hidden")
         $("#row11").removeClass("hidden")
         $("#row10").removeClass("hidden")
@@ -68,20 +84,7 @@
 
     }
 
-    if($("#sistem_tanam").val() == 1){
-            if ($("#aset_kode").val() != 22) {
-                $("#row12").removeClass("hidden")
-                $("#row13").removeClass("hidden")
-            } else {
-                $("#row12").addClass("hidden")
-                $("#row13").addClass("hidden")
-            }
-    }
 
-    else {
-        $("#row12").addClass("hidden")
-        $("#row13").addClass("hidden")
-    }
 
 
     $("#aset_tipe").change(function (e) {
