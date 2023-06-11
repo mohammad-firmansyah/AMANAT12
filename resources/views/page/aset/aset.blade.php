@@ -13,6 +13,12 @@
 <!-- <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> -->
 <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css " rel="stylesheet">
 <!-- third party css end -->
+<style>
+     .hidden {
+        display: none !important;
+    }
+
+</style>
 @endsection
 
 @section('breadcump')
@@ -41,11 +47,14 @@
             <div class="card-body">
                 <h4 class="header-title">Data {{ $title }}</h4><br>
                 {{-- <p class="sub-header"></p> --}}
-
+                <button class="btn btn-md btn-success my-2 hidden" id="kirim_data">Kirim Data terpilih</button>
                 <table id="responsive-datatable" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr style="text-align: center;">
                             <th>No.</th>
+                            <td>
+                            <input type="checkbox"  id="check_all" >
+                            </td>
                             <th>Tanggal</th>
                             <th>Nama</th>
                             <th>Nilai Aset</th>
@@ -55,6 +64,7 @@
                             <th>Masa Susut</th>
                             <th>Jenis Aset</th>
                             <th>Afdeling</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +73,9 @@
                         @foreach($aset as $key => $value)
                         <tr style="text-align: center;">
                             <td>{{$key + 1}}</td>
+                            <td>
+                            <input type="checkbox" class="chk" id="chk_{{$key+1}}">
+                            </td>
                             <td>{{$value->tgl_oleh}}</td>
                             <td>{{$value->aset_name}}</td>
                             <td>{{$value->nilai_oleh}}</td>
@@ -79,11 +92,15 @@
                             <td>{{$value->masa_susut}} Tahun</td>
                             <td>{{$value->aset_jenis}}</td>
                             <td>{{$value->afdeling_id}}</td>
+
                         </tr>
                         @endforeach
                     </tbody>
 
+
                 </table>
+
+
             </div>
         </div>
     </div>
@@ -148,6 +165,7 @@ document.querySelectorAll(".delete").forEach(element => {
             });
     })
 });
+
 
 </script>
 <!-- Buttons js -->

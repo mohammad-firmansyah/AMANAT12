@@ -282,7 +282,7 @@
 
                         <div class="col">
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#exampleModal">
                                 Pilih Nomor SAP
                             </button>
                         </div>
@@ -588,7 +588,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="submit-sap" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-success" id="submit-sap" data-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
@@ -637,7 +637,7 @@ $("#input-sap").keypress(function (e) {
 
     for (let index = 0; index < result.length; index++) {
         if (result[index].sap_desc.includes(e.target.value)){
-            const card ="<div class=\'p-2 mt-2 border d-flex justify-content-between align-items-center\'><span class=\'font-weight-bold\'>"+result[index].sap_desc+"</span><button data='"+result[index].sap_desc+"' class=\'btn btn-primary select-sap\' id='sap-"+(index+1)+"' onclick='selectSAP(this.id)'>Pilih</button></div>"
+            const card ="<div class=\'p-2 mt-2 border d-flex justify-content-between align-items-center\'><span class=\'font-weight-bold\'>"+result[index].sap_desc+"</span><button data='"+result[index].sap_desc+"' class=\'btn btn-success select-sap\' id='sap-"+(index+1)+"' onclick='selectSAP(this.id)'>Pilih</button></div>"
             $('#search-sap').append(card)
         }
     }
